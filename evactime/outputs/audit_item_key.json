@@ -1,0 +1,526 @@
+[
+ {
+  "id": "I000",
+  "pid": "P26",
+  "model": "anthropic/claude-sonnet-5",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant is seated in the waiting room when the walls begin to flash red, indicating a fire alarm activation. Shortly after noticing the alarm, the viewpoint begins moving through the room toward the door near the eye chart posters. The participant navigates through a series of hallways and rooms, seemingly searching for the correct exit, occasionally reversing direction. Eventually, the participant reaches a door, interacts with the handle using a visible hand model, and the scene ends as the door opens.",
+  "catch": false
+ },
+ {
+  "id": "I001",
+  "pid": "P18",
+  "model": "gemini-3-flash-preview",
+  "cond": "A0",
+  "rep": 0,
+  "narrative": "The participant is seated in a clinic waiting room when the fire alarm activates at 21.0 seconds, indicated by the room flashing red. After looking at the alarm and the exit sign, the participant stands and begins walking toward the door at 26.5 seconds. They reach the door, interact with the handle to open it, and pass through at 41.0 seconds, at which point the scene resets.",
+  "catch": false
+ },
+ {
+  "id": "I002",
+  "pid": "P1",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "A0",
+  "rep": 0,
+  "narrative": "The participant is seated in a waiting room while an NPC exits early on. At 17 seconds, a visual fire alarm activates, causing the room to flash red. The participant briefly looks towards the alarm before standing up. They then walk directly to the exit door, open it, and leave the room.",
+  "catch": false
+ },
+ {
+  "id": "I003",
+  "pid": "P21",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "A0",
+  "rep": 0,
+  "narrative": "The participant is sitting in a clinic waiting room when the fire alarm triggers, indicated by red flashing lights. After a short delay, the participant stands up and walks toward the exit door. They reach the door, interact with the handle, and exit the room, concluding the scene.",
+  "catch": false
+ },
+ {
+  "id": "I004",
+  "pid": "P21",
+  "model": "openai/gpt-5.2",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant sits in a clinic waiting room facing two doors. The fire alarm becomes visible as the room begins flashing red. After a brief pause and looking toward the exit signage, the participant starts walking toward the exit door. They reach for the handle and open the door, after which the view appears to extend beyond the doorway consistent with leaving the room.",
+  "catch": false
+ },
+ {
+  "id": "I005",
+  "pid": "P9",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "A",
+  "rep": 0,
+  "narrative": "The participant is seated in a waiting room when an NPC exits. At 18 seconds, a fire alarm activates with flashing red lights and a loud bell. The participant looks around briefly before standing up and walking towards the exit door. They interact with the door handle and exit the room, ending the scene.",
+  "catch": false
+ },
+ {
+  "id": "I006",
+  "pid": "P3",
+  "model": "gemini-3-flash-preview",
+  "cond": "A",
+  "rep": 1,
+  "narrative": "The participant is seated in a clinic waiting room, watching an NPC walk across the room and enter a side office. At 24 seconds, the fire alarm activates with a loud siren and red flashing lights. The participant looks around the room to locate the source of the alarm and the exit sign before deciding to leave. They start moving toward the exit at 37 seconds, reach the door, and after interacting with the handle, they pass through the doorway to safety.",
+  "catch": false
+ },
+ {
+  "id": "I007",
+  "pid": "P17",
+  "model": "gemini-3-flash-preview",
+  "cond": "A",
+  "rep": 2,
+  "narrative": "The participant is waiting in a clinic room when a fire alarm suddenly activates with both a loud siren and flashing red lights. They spend several seconds looking around the room, identifying the alarm bell and the exit sign. After this brief period of orientation, they stand up and walk directly toward the exit door. They interact with the door handle several times before successfully opening it and leaving the room, at which point the scene ends.",
+  "catch": false
+ },
+ {
+  "id": "I008",
+  "pid": "P11",
+  "model": "anthropic/claude-opus-4.8",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant sits in a clinic waiting room facing the exit door, initially scanning the room and its eye-chart posters. Around frame 17 the ceiling and walls take on a red/pink tint as the fire alarm activates. After a brief period of looking around, the participant begins traveling toward the exit door near frame 29, closing in on the door handle. They interact with the door handle, open it, and pass through, after which the scene changes to a different room view around frame 38.",
+  "catch": false
+ },
+ {
+  "id": "I009",
+  "pid": "P14",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "A0",
+  "rep": 0,
+  "narrative": "The participant sits in a waiting room until a fire alarm triggers a red flashing light. After a short delay, the participant stands up and walks toward the exit door. They interact with the door handle to open it and exit the room, concluding the scene.",
+  "catch": false
+ },
+ {
+  "id": "I010",
+  "pid": "P5",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant is seated when a visual red alarm begins. They walk to the door and reach for the handle. The viewpoint then abruptly resets to the room's center. The participant remains in the room until the video ends.",
+  "catch": false
+ },
+ {
+  "id": "I011",
+  "pid": "P1",
+  "model": "gemini-3-flash-preview",
+  "cond": "A0",
+  "rep": 2,
+  "narrative": "The participant is seated in a clinic waiting room when a fire alarm activates, indicated by the room flashing red. After noticing the alarm and looking at the exit sign, the participant waits a few seconds before standing and walking toward the exit. They reach the door, open it, and pass through, which concludes the scene.",
+  "catch": false
+ },
+ {
+  "id": "I012",
+  "pid": "P6",
+  "model": "gemini-3-flash-preview",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant is seated in a clinic waiting room when a visual fire alarm begins to flash red at frame 10. After observing the alarm for a few seconds, the participant stands up and turns toward the exit door at frame 14. They walk directly to the door and reach for the handle at frame 22. The participant opens the door and exits the room at frame 23, concluding the scene.",
+  "catch": false
+ },
+ {
+  "id": "I013",
+  "pid": "P30",
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant is seated in a clinic waiting room when a fire alarm activates, causing the room to flash red. They immediately stand and begin walking toward the exit door. After approaching the door, they open it and pass through, exiting the waiting-room scene.",
+  "catch": false
+ },
+ {
+  "id": "I014",
+  "pid": "P10",
+  "model": "openai/gpt-5.2",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant views the waiting room and briefly has another person in view. The fire alarm becomes visible as the room begins flashing red, and the participant remains mostly stationary while looking toward the exit area. After some delay, they begin moving forward toward the exit door. They reach the door and interact with the handle, after which the exit is presumed to be reached though a clear scene end is not captured in the sampled frames.",
+  "catch": false
+ },
+ {
+  "id": "I015",
+  "pid": "P10",
+  "model": "anthropic/claude-opus-4.8",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant begins seated/standing in the clinic waiting room with an NPC visible ahead near the exam charts. The viewpoint moves forward and orients toward the exit door beneath the green exit sign and red alarm. Around frame 24 the room takes on a red/orange flash indicating the fire alarm has activated, and the participant continues facing the exit. The participant approaches the wooden exit door, reaches for and grasps the handle in close-up, and then passes through as the scene resets around frame 51-52.",
+  "catch": false
+ },
+ {
+  "id": "I016",
+  "pid": "P15",
+  "model": "gemini-3-flash-preview",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant is seated in a waiting room when the fire alarm activates at frame 12, indicated by a red visual flash. The participant looks around the room to identify the source of the alarm and the exit location. At frame 22, they stand and begin walking toward the exit door. They continue to approach the door until they reach it at frame 74, at which point the scene concludes.",
+  "catch": false
+ },
+ {
+  "id": "I017",
+  "pid": "P7",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant is sitting in a clinic waiting room. A fire alarm activates, causing the room to flash red. The participant observes the alarm and the exit sign, then stands up and walks toward the exit door. The participant reaches the door and leaves the room.",
+  "catch": false
+ },
+ {
+  "id": "I018",
+  "pid": "P28",
+  "model": "anthropic/claude-sonnet-5",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant sits in a waiting room examining posters and wall d\u00e9cor while the room periodically shifts with a reddish tint, signaling the fire alarm. After noticing the alarm the viewpoint pauses briefly, seemingly assessing the space, before beginning to move toward an exit route. The camera pans through a window area with a city view before reorienting back into the corridor with the office door. Eventually, a hand reaches out and opens the door, and the scene transitions into a hallway, marking the end of the waiting-room scene.",
+  "catch": false
+ },
+ {
+  "id": "I019",
+  "pid": "P4",
+  "model": "anthropic/claude-sonnet-5",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant starts near a window in the waiting room, then the scene shifts to show the exit sign and fire alarm bell mounted near the door. The room briefly takes on a reddish hue suggesting the fire alarm has triggered. The participant approaches the wooden exit door, interacts with the handle repeatedly (turning it), and eventually opens and passes through the door. The final frames show a new room/hallway beyond the original waiting room, indicating successful egress.",
+  "catch": false
+ },
+ {
+  "id": "I020",
+  "pid": "P31",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "A",
+  "rep": 2,
+  "narrative": "The participant is seated in a clinic waiting room. After twelve seconds, a fire alarm triggers with both visual and auditory cues. The participant waits a few seconds, then stands up and walks toward the exit door. They open the door and exit the room, completing the evacuation.",
+  "catch": false
+ },
+ {
+  "id": "I021",
+  "pid": "P29",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant is sitting in a waiting room when the fire alarm activates, causing the room to flash red. After a short period of observation, the participant stands up and walks toward the exit door. They reach the door, interact with the handle, and the scene concludes as they exit.",
+  "catch": false
+ },
+ {
+  "id": "I022",
+  "pid": "P23",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "A0",
+  "rep": 1,
+  "narrative": "The participant is sitting in a clinic waiting room when the fire alarm is triggered, indicated by a red flashing light. After a period of observation, the participant stands up and walks toward the exit door. They reach the door, open it, and successfully exit the room.",
+  "catch": false
+ },
+ {
+  "id": "I023",
+  "pid": "P8",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant is waiting when the visual fire alarm activates. They initially move towards the window, appearing to search the area. After a brief hesitation, they turn back to the center of the room. Finally, they locate and approach the main exit door, open it, and leave the room.",
+  "catch": false
+ },
+ {
+  "id": "I024",
+  "pid": "P13",
+  "model": "meta-llama/llama-4-maverick",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant is seated in a clinic waiting room. A fire alarm activates, causing the room to flash red. The participant stands, walks to the exit door, and leaves the room.",
+  "catch": false
+ },
+ {
+  "id": "I025",
+  "pid": "P12",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "A0",
+  "rep": 1,
+  "narrative": "The participant is initially seated in the waiting room. At 12 seconds, the visual fire alarm activates, causing the room to flash red. The participant remains seated for a few seconds before standing and beginning to move towards the exit at 17 seconds. They reach the door, interact with the handle to open it, and exit the room, ending the scene at 29 seconds.",
+  "catch": false
+ },
+ {
+  "id": "I026",
+  "pid": "P25",
+  "model": "meta-llama/llama-4-maverick",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant is initially seated in the clinic waiting room. A fire alarm activates, causing the room to flash red. The participant stands up, walks to the exit door, and leaves the room.",
+  "catch": false
+ },
+ {
+  "id": "I027",
+  "pid": "P9",
+  "model": "gemini-3-flash-preview",
+  "cond": "A0",
+  "rep": 0,
+  "narrative": "The participant is seated in a clinic waiting room when an NPC exits through a side door. Shortly after, the fire alarm activates, causing the room to flash red. The participant looks around the room for several seconds before focusing on the main exit door and the alarm light. They then stand and walk towards the exit, opening the door and leaving the room to conclude the scene.",
+  "catch": false
+ },
+ {
+  "id": "I028",
+  "pid": "P28",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The fire alarm activates with a red flashing light. The participant looks around the room and out the window. They initially move towards and reach for the incorrect door on the left. They then turn and walk towards the correct exit door on the right.",
+  "catch": false
+ },
+ {
+  "id": "I029",
+  "pid": "P30",
+  "model": "gemini-3-flash-preview",
+  "cond": "A",
+  "rep": 2,
+  "narrative": "The participant begins in a waiting room, watching an NPC walk to and exit through a door. After a period of inactivity, a fire alarm triggers with a loud siren and flashing red lights. The participant looks at the alarm and then the exit sign before starting to walk toward the door. They reach the door and attempt to open it, then look around the room once more before successfully exiting, ending the scene.",
+  "catch": false
+ },
+ {
+  "id": "I030",
+  "pid": "P15",
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant is seated in a clinic waiting room when the fire alarm activates, causing the room to flash red at frame 12. The participant begins moving toward the exit at frame 23, walking steadily across the room. They reach and pass through the exit door by frame 74, ending the scene.",
+  "catch": false
+ },
+ {
+  "id": "I031",
+  "pid": "P14",
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant is seated in a clinic waiting room when a fire alarm activates, flashing the room red. They immediately stand and begin walking toward the exit door. After approaching the door, they open it and exit the room, ending the scene.",
+  "catch": false
+ },
+ {
+  "id": "I032",
+  "pid": "P19",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "A",
+  "rep": 0,
+  "narrative": "The participant is sitting in a waiting room when the fire alarm activates. After a short delay, the participant stands up and walks towards the exit door. They open the door and exit the room, ending the scene.",
+  "catch": false
+ },
+ {
+  "id": "I033",
+  "pid": "P24",
+  "model": "anthropic/claude-sonnet-5",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant sits in a clinic waiting room while viewing wall posters and certificates. Around frame 18-19 the room flashes with a reddish alarm tint, signaling a fire emergency. The participant then approaches the wooden exit door, reaching for and turning the handle. By frame 30 the viewpoint passes through the doorway into a hallway, ending the waiting-room scene. Afterward, the camera continues down the corridor away from the original room.",
+  "catch": false
+ },
+ {
+  "id": "I034",
+  "pid": "P13",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "A",
+  "rep": 0,
+  "narrative": "The participant is sitting in a clinic waiting room when a fire alarm suddenly triggers. After a short period of hesitation, the participant stands up and walks towards the exit door. They reach the door, interact with the handle, and exit the room, concluding the scene.",
+  "catch": false
+ },
+ {
+  "id": "I035",
+  "pid": "P26",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "A",
+  "rep": 2,
+  "narrative": "The participant is seated in a waiting room, looking around the environment. At 13 seconds, the fire alarm sounds and the room flashes red. The participant remains seated for a few seconds, looking around, before standing up at 20 seconds. They walk directly to the door on the left, open it, and exit the room.",
+  "catch": false
+ },
+ {
+  "id": "I036",
+  "pid": "P16",
+  "model": "gemini-3-flash-preview",
+  "cond": "A0",
+  "rep": 1,
+  "narrative": "The participant is seated in a clinic waiting room when the fire alarm activates at 15 seconds, indicated by the room flashing red. After the alarm starts, the participant looks around the room to locate the source and identifies the exit sign. At 26 seconds, the participant begins walking toward the exit door. They reach the door, interact with the handle, and exit the room at 36 seconds.",
+  "catch": false
+ },
+ {
+  "id": "I037",
+  "pid": "P27",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant waits in the clinic room while an NPC exits. The fire alarm triggers, flashing red light. The participant stands and walks to the door. They open it and enter the hallway.",
+  "catch": false
+ },
+ {
+  "id": "I038",
+  "pid": "P16",
+  "model": "meta-llama/llama-4-maverick",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The participant is initially seated in the clinic waiting room. The fire alarm activates, causing the room to flash red. The participant then stands up, walks towards the exit door, opens it, and leaves the room.",
+  "catch": false
+ },
+ {
+  "id": "I039",
+  "pid": "P12",
+  "model": "anthropic/claude-opus-4.8",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant sits in the clinic waiting room facing the exit door for the first several seconds. Around frame 12 the room begins to flash red as the fire alarm activates. Shortly after, the viewpoint starts translating forward through an adjoining room toward a door, which the participant reaches and opens by frame 25. After passing through the door the scene transitions to a new waiting-room view, ending the original scene near frame 29.",
+  "catch": false
+ },
+ {
+  "id": "I040",
+  "pid": "P20",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "A",
+  "rep": 1,
+  "narrative": "The participant is seated in a clinic waiting room when the fire alarm activates with a loud siren and flashing red lights. They look around the room briefly to locate the source of the alarm. Shortly after, they stand up and walk directly towards the exit door. They interact with the door handle, open the door, and exit the room.",
+  "catch": false
+ },
+ {
+  "id": "I041",
+  "pid": "P27",
+  "model": "gemini-3-flash-preview",
+  "cond": "A",
+  "rep": 0,
+  "narrative": "The participant is seated in a clinic waiting room when an NPC briefly walks through. After some time, a fire alarm sounds and the room begins flashing red. The participant looks around at the alarm and the exit sign before standing up. They walk directly to the door, reach for the handle, and exit the room.",
+  "catch": false
+ },
+ {
+  "id": "I042",
+  "pid": "P4",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "A0",
+  "rep": 1,
+  "narrative": "The participant is seated in the waiting room while an NPC exits through the left door. A visual fire alarm activates, causing the room to flash red. The participant stands and approaches the door with the exit sign, but it appears locked when they try the handle. They then try the other door, which also seems locked, before returning to try the first door again. The participant remains in the room, unable to exit, until the recording ends.",
+  "catch": false
+ },
+ {
+  "id": "I043",
+  "pid": "P20",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant is sitting in a clinic waiting room. A fire alarm triggers, causing the room to flash red. The participant stands up and walks towards the exit door. They reach the door and the scene concludes.",
+  "catch": false
+ },
+ {
+  "id": "I044",
+  "pid": "P11",
+  "model": "openai/gpt-5.2",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The waiting room is initially stable with the exit door in view. The fire alarm becomes visible when the room starts flashing red. The participant looks around briefly, then orients back toward the exit door and advances toward it. They reach out and interact with the door handle; a clear door-passage/scene end is not visibly captured in the sampled frames.",
+  "catch": false
+ },
+ {
+  "id": "I045",
+  "pid": "P29",
+  "model": "anthropic/claude-opus-4.8",
+  "cond": "B",
+  "rep": 2,
+  "narrative": "The recording begins in a clinic waiting room seen from a seated viewpoint. The participant turns to face the wall with the fire alarm button and the green exit sign, and around frame 14-15 the room takes on a warm reddish flash indicating the alarm. The participant approaches the exit door, reaches for the handle, and opens it. They pass through the doorway and the waiting-room scene ends, with subsequent frames showing repeated room views.",
+  "catch": false
+ },
+ {
+  "id": "I046",
+  "pid": "P25",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "A",
+  "rep": 0,
+  "narrative": "The participant is sitting in a waiting room when a fire alarm triggers. After a short delay, the participant stands up and walks towards the exit door. They reach the door and interact with it, ending the scene.",
+  "catch": false
+ },
+ {
+  "id": "I047",
+  "pid": "P17",
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant is seated in a clinic waiting room when a red fire alarm flashes at frame 20. They immediately begin moving toward the exit door, reaching it by frame 29. At frame 30, they interact with the door handle and pass through the doorway at frame 34, ending the waiting-room scene.",
+  "catch": false
+ },
+ {
+  "id": "I048",
+  "pid": "P5",
+  "model": "gemini-3-flash-preview",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant is seated in a clinic waiting room when a visual fire alarm activates at frame 24, causing the room to flash red. After observing the environment for several seconds, the participant moves toward the exit door, reaching it by frame 31. They interact with the door handle and pass through the exit, at which point the scene resets at frame 34. The recording appears to contain multiple trials or discrete jumps in perspective.",
+  "catch": false
+ },
+ {
+  "id": "I049",
+  "pid": "P7",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "A0",
+  "rep": 2,
+  "narrative": "The participant sits in a waiting room until a red fire alarm begins flashing. After a period of observation, the participant stands and walks toward the exit door. They reach the door, open it, and successfully exit the room.",
+  "catch": false
+ },
+ {
+  "id": "I050",
+  "pid": "P18",
+  "model": "openai/gpt-5.2",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant sits facing the exit door in the clinic waiting room. The fire alarm becomes visible as the room begins flashing red. They look around briefly and orient toward the exit sign and door. The participant then walks toward the door and interacts with the handle, with a second handle interaction later that likely corresponds to exiting.",
+  "catch": false
+ },
+ {
+  "id": "I051",
+  "pid": "P6",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "A0",
+  "rep": 2,
+  "narrative": "The participant is initially seated in a clinic waiting room. At 10 seconds, a visual fire alarm activates, causing the room to flash red. The participant looks around the room for a few seconds to assess the situation. They then begin walking directly towards the exit door. Upon reaching the door, they interact with the handle and exit, transitioning to the hallway.",
+  "catch": false
+ },
+ {
+  "id": "I052",
+  "pid": "P23",
+  "model": "gemini-3.1-flash-lite",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant sits in the waiting room until the fire alarm triggers a red flashing light. They remain seated for a while, observing the environment. Eventually, they stand up and begin walking towards the exit door. The scene ends as they reach the door.",
+  "catch": false
+ },
+ {
+  "id": "I053",
+  "pid": "P8",
+  "model": "gemini-3-flash-preview",
+  "cond": "B",
+  "rep": 1,
+  "narrative": "The participant is seated in a clinic waiting room when a fire alarm activates at frame 20, causing the room to flash red. Initially, the participant remains seated and looks around the room to assess the situation, with a jump in viewpoint occurring at frame 27. After observing the environment and the continuing alarm flashes, the participant stands and begins traveling toward the main exit door at frame 68. The recording ends at frame 74 as the participant reaches the door.",
+  "catch": false
+ },
+ {
+  "id": "I054",
+  "pid": "P19",
+  "model": "gemini-3.1-pro-preview",
+  "cond": "A",
+  "rep": 1,
+  "narrative": "The participant is seated in a waiting room, looking out the window and around the room. At 10.5 seconds, a fire alarm sounds and the room flashes red. The participant looks at the alarm, then stands up and starts moving towards the exit door at 15.5 seconds. They reach the door, interact with the handle, and exit the room, ending the scene.",
+  "catch": false
+ },
+ {
+  "id": "I055",
+  "pid": "P3",
+  "model": "meta-llama/llama-4-maverick",
+  "cond": "B",
+  "rep": 0,
+  "narrative": "The participant is initially seated. A fire alarm activates, causing the room to flash red. The participant stands, walks to the exit door, opens it, and leaves the room.",
+  "catch": false
+ },
+ {
+  "id": "C001",
+  "pid": null,
+  "model": null,
+  "cond": null,
+  "rep": null,
+  "narrative": "The participant is standing outdoors in a car park on a bright afternoon. They walk between two parked vans, stop to check a phone, and then climb into the back of a white lorry as it begins to reverse.",
+  "catch": true,
+  "expected_q2": "incorrect"
+ },
+ {
+  "id": "C002",
+  "pid": null,
+  "model": null,
+  "cond": null,
+  "rep": null,
+  "narrative": "The participant is seated at a desk in a small office, typing on a laptop. A colleague brings over two cups of coffee, they talk for a while, and the recording ends with both of them laughing at something on the screen.",
+  "catch": true,
+  "expected_q2": "incorrect"
+ }
+]

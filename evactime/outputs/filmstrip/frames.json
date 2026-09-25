@@ -1,0 +1,42 @@
+{
+ "pid": "P1",
+ "cut_video_s": 131.16,
+ "source": "compressed_videos/P1_Compressed.mp4",
+ "frames": {
+  "a_alarm": {
+   "t_rel_cut": -8.0,
+   "shape": [
+    1028,
+    1920
+   ]
+  },
+  "b_door": {
+   "t_rel_cut": -3.0,
+   "shape": [
+    1028,
+    1920
+   ]
+  },
+  "c_handle": {
+   "t_rel_cut": -0.1,
+   "shape": [
+    1028,
+    1920
+   ]
+  },
+  "d_reset": {
+   "t_rel_cut": 0.2,
+   "shape": [
+    1027,
+    1920
+   ]
+  },
+  "e_later": {
+   "t_rel_cut": 38.0,
+   "shape": [
+    1027,
+    1920
+   ]
+  }
+ }
+}

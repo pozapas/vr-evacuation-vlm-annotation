@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+assets/
+vlm dataset/
+compressed_videos/
+evactime/figures/
+paper/tables/

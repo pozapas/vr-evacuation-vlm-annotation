@@ -1,0 +1,55 @@
+id,pid,model,cond,regex_transit,verdict_exit,verdict_ending,n_exit
+I000,P26,anthropic/claude-sonnet-5,B,False,no exit,not correct,3
+I001,P18,gemini-3-flash-preview,A0,True,no exit,not correct,2
+I002,P1,gemini-3.1-pro-preview,A0,True,no exit,not correct,3
+I003,P21,gemini-3.1-flash-lite,A0,True,no exit,not correct,2
+I004,P21,openai/gpt-5.2,B,True,no exit,not correct,3
+I005,P9,gemini-3.1-pro-preview,A,True,no exit,not correct,3
+I006,P3,gemini-3-flash-preview,A,True,no exit,not correct,2
+I007,P17,gemini-3-flash-preview,A,True,no exit,not correct,2
+I008,P11,anthropic/claude-opus-4.8,B,True,no exit,not correct,3
+I009,P14,gemini-3.1-flash-lite,A0,True,no exit,not correct,1
+I010,P5,gemini-3.1-pro-preview,B,False,no exit,correct,3
+I011,P1,gemini-3-flash-preview,A0,True,no exit,not correct,1
+I012,P6,gemini-3-flash-preview,B,True,no exit,not correct,3
+I013,P30,qwen/qwen3-vl-235b-a22b-instruct,B,True,no exit,not correct,2
+I014,P10,openai/gpt-5.2,B,False,no exit,not correct,3
+I015,P10,anthropic/claude-opus-4.8,B,True,no exit,not correct,2
+I017,P7,gemini-3.1-flash-lite,B,True,no exit,not correct,3
+I018,P28,anthropic/claude-sonnet-5,B,True,no exit,not correct,3
+I019,P4,anthropic/claude-sonnet-5,B,True,no exit,not correct,4
+I020,P31,gemini-3.1-flash-lite,A,True,no exit,not correct,2
+I021,P29,gemini-3.1-flash-lite,B,True,no exit,tied,3
+I022,P23,gemini-3.1-flash-lite,A0,True,no exit,not correct,3
+I023,P8,gemini-3.1-pro-preview,B,True,no exit,not correct,2
+I024,P13,meta-llama/llama-4-maverick,B,True,no exit,not correct,3
+I025,P12,gemini-3.1-pro-preview,A0,True,no exit,not correct,3
+I026,P25,meta-llama/llama-4-maverick,B,True,no exit,not correct,3
+I027,P9,gemini-3-flash-preview,A0,True,no exit,not correct,2
+I028,P28,gemini-3.1-pro-preview,B,False,no exit,not correct,3
+I029,P30,gemini-3-flash-preview,A,True,no exit,not correct,3
+I031,P14,qwen/qwen3-vl-235b-a22b-instruct,B,True,no exit,not correct,2
+I032,P19,gemini-3.1-flash-lite,A,True,no exit,not correct,3
+I033,P24,anthropic/claude-sonnet-5,B,True,no exit,not correct,2
+I034,P13,gemini-3.1-flash-lite,A,True,no exit,not correct,3
+I035,P26,gemini-3.1-pro-preview,A,True,no exit,not correct,1
+I036,P16,gemini-3-flash-preview,A0,True,no exit,not correct,4
+I037,P27,gemini-3.1-pro-preview,B,True,no exit,not correct,4
+I038,P16,meta-llama/llama-4-maverick,B,True,no exit,not correct,2
+I039,P12,anthropic/claude-opus-4.8,B,True,tied,not correct,4
+I040,P20,gemini-3.1-pro-preview,A,True,no exit,not correct,3
+I041,P27,gemini-3-flash-preview,A,True,no exit,not correct,2
+I042,P4,gemini-3.1-pro-preview,A0,False,no exit,not correct,2
+I043,P20,gemini-3.1-flash-lite,B,False,no exit,tied,2
+I044,P11,openai/gpt-5.2,B,False,no exit,correct,3
+I045,P29,anthropic/claude-opus-4.8,B,True,no exit,tied,2
+I046,P25,gemini-3.1-flash-lite,A,False,no exit,tied,3
+I047,P17,qwen/qwen3-vl-235b-a22b-instruct,B,True,no exit,not correct,1
+I048,P5,gemini-3-flash-preview,B,True,no exit,not correct,3
+I049,P7,gemini-3.1-flash-lite,A0,True,no exit,not correct,3
+I050,P18,openai/gpt-5.2,B,True,no exit,not correct,3
+I051,P6,gemini-3.1-pro-preview,A0,True,no exit,not correct,2
+I052,P23,gemini-3.1-flash-lite,B,False,no exit,not correct,3
+I053,P8,gemini-3-flash-preview,B,False,no exit,not correct,2
+I054,P19,gemini-3.1-pro-preview,A,True,no exit,not correct,3
+I055,P3,meta-llama/llama-4-maverick,B,True,no exit,not correct,2

@@ -1,0 +1,59 @@
+# Frozen constants for the Q1 paper. Generated from the artefacts by freeze_config.py.
+# Every number the manuscript states must trace to this file or to a script that reads it.
+# Part 8 of the implementation plan requires one denominator convention, stated once.
+
+corpus:
+  n_participants_recorded: 31
+  n_participants_analysed: 29
+  excluded: [P2, P22]
+  exclusion_reason: >
+    P22 has a corrupt trajectory log. P2 failed video clock alignment at the asset freeze.
+    Both were excluded before any scoring and the set has not changed since.
+  participants: [P1, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P23, P24, P25, P26, P27, P28, P29, P30, P31]
+  # NOTE: the engine locomotion cohort used for the companion EEG work is also 29 but is a
+  # DIFFERENT set (31 minus P22 minus P15, with P2 included). Never mix the two in prose.
+
+analysis_window:
+  length_s: 75.0
+  pre_alarm_pad_s: [10.0, 25.0]   # randomised per participant
+  anchor: engine alarm marker
+
+resolution:
+  n_assertions: 1306
+  viewpoint_xyz: [2.356, 1.223, -1.387]
+  viewpoint_provenance: >
+    Cohort median eye position over the pre-alarm baseline, between the WaitingRoom and
+    ALARM_TRIGGERED markers, across the 29 analysed participants. It is a single
+    three-number calibration constant. It is published here so the analysis reproduces
+    from the released geometry and hitObject series alone: no trajectory data is
+    analysed as a variable, reported as a result, or included in the deposit.
+  viewpoint_sensitivity: >
+    Angular separations between scene objects depend materially on which viewpoint is
+    used. Recomputed from each participant's own seated position, the alarm-to-display
+    separation spans 15.9 to 27.1 degrees (5th to 95th percentile) against 24.9 at the
+    canonical viewpoint, and the two NPCs span 78 to 127 degrees against 113.5. Any
+    angular figure from the canonical viewpoint is therefore descriptive of one vantage
+    point and must not be reported as a measured property of the annotator. This is one
+    of the reasons the resolution-limit framing was withdrawn.
+  bootstrap: participant-clustered
+
+audit:
+  platform: Prolific
+  n_submissions_real: 11
+  n_coders_retained: 10
+  excluded_attention_check: [C05]
+  excluded_pilot: [PILOT01]   # a co-author's test run, 8 Sep 2026
+  n_items_scored: 54
+  dropped_items: [I016, I030]   # P15, scene cut at 1.2 s not ~7.5 s
+  clip_window_s: [8.0, 4.0]       # before, after the scene cut
+  bootstrap: coder-clustered
+  alpha_q1_binary: -0.077
+  alpha_q2: 0.047
+
+venue:
+  journal: International Journal of Disaster Risk Science
+  special_issue: Advancing Evacuation Science for Resilient Communities and Disaster Risk Reduction
+  deadline: 2027-03-31
+  word_limit_incl_refs: 8000
+  max_figures: 5
+  max_tables: 3
