@@ -90,6 +90,26 @@
   0.7045454545454546,
   1.0
  ],
+ "ci_crossed": [
+  0.6590909090909091,
+  1.0
+ ],
+ "q2_levels_flagged": {
+  "correct": 0.19772727272727272,
+  "partly": 0.41363636363636364,
+  "incorrect": 0.35,
+  "unsure": 0.038636363636363635
+ },
+ "q2_plurality_flagged": {
+  "incorrect": 16,
+  "partly": 21,
+  "correct": 3,
+  "tie": 4
+ },
+ "q2_majority_incorrect": 7,
+ "alpha_q1_cat3": -0.05180572558621366,
+ "alpha_q1_cat4": -0.04648944246259723,
+ "other_max": 27,
  "corroboration_majority": 0.9772727272727273,
  "corroboration_dissent": 0.7272727272727273
 }

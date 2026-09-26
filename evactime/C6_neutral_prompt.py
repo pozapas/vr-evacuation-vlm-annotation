@@ -235,17 +235,50 @@ def main():
     lines.append(f"   pooled neutral-prompt OR {np.exp(b):.2f} [{np.exp(b - 1.96 * se):.2f}, "
                  f"{np.exp(b + 1.96 * se):.2f}], p = {m1.pvalues['neutral']:.2g}, "
                  f"within-participant correlation {float(m1.cov_struct.dep_params):.2f}")
+    # Review, 25 Sep 2026. (1) With 29 clusters the robust sandwich is biased downward, so the
+    # pooled model is refitted with the Mancl-DeRouen bias-reduced covariance, and that fit is the
+    # primary test. (2) The cell odds ratios come from ONE model with a prompt-by-cell interaction
+    # (Equation 1 with cell-specific prompt terms), not from separate fits, with a joint Wald test
+    # of whether the cells differ. (3) A participant-level sign test, which assumes nothing about
+    # the dependence between calls: for each participant, did the neutral description lower or
+    # raise that participant's count of exit claims over all paired calls?
+    from scipy import stats as sps
+    mb = smf.gee("y ~ C(cell) + neutral", "pid", long, family=fam, cov_struct=cov).fit(
+        cov_type="bias_reduced")
+    b, se = mb.params["neutral"], mb.bse["neutral"]
+    res["gee_pooled_bc"] = dict(OR=float(np.exp(b)), ci=[float(np.exp(b - 1.96 * se)),
+                                float(np.exp(b + 1.96 * se))], p=float(mb.pvalues["neutral"]))
+    lines.append(f"   bias-reduced covariance: OR {np.exp(b):.2f} [{np.exp(b - 1.96 * se):.2f}, "
+                 f"{np.exp(b + 1.96 * se):.2f}], p = {mb.pvalues['neutral']:.2g}")
+    mi = smf.gee("y ~ C(cell) * neutral", "pid", long, family=fam, cov_struct=cov).fit(
+        cov_type="bias_reduced")
+    names_ = list(mi.params.index)
+    V = mi.cov_params()
+    base = sorted(long.cell.unique())[0]
     res["gee_cells"] = {}
     for c in sorted(long.cell.unique()):
-        sub = long[long.cell == c]
-        if sub.y.nunique() < 2:
-            continue
-        mc = smf.gee("y ~ neutral", "pid", sub, family=fam, cov_struct=cov).fit()
-        bc, sc = mc.params["neutral"], mc.bse["neutral"]
-        res["gee_cells"][c] = dict(OR=float(np.exp(bc)), ci=[float(np.exp(bc - 1.96 * sc)),
-                                   float(np.exp(bc + 1.96 * sc))], p=float(mc.pvalues["neutral"]))
-        lines.append(f"   {c:40s} OR {np.exp(bc):.2f} [{np.exp(bc - 1.96 * sc):.2f}, "
-                     f"{np.exp(bc + 1.96 * sc):.2f}]  p = {mc.pvalues['neutral']:.2g}")
+        w = np.zeros(len(names_))
+        w[names_.index("neutral")] = 1
+        if c != base:
+            w[names_.index(f"C(cell)[T.{c}]:neutral")] = 1
+        est = float(w @ mi.params.values)
+        sd = float(np.sqrt(w @ V.values @ w))
+        res["gee_cells"][c] = dict(OR=float(np.exp(est)), ci=[float(np.exp(est - 1.96 * sd)),
+                                   float(np.exp(est + 1.96 * sd))])
+        lines.append(f"   interaction model {c:36s} OR {np.exp(est):.2f} "
+                     f"[{np.exp(est - 1.96 * sd):.2f}, {np.exp(est + 1.96 * sd):.2f}]")
+    inter = [i for i, n in enumerate(names_) if n.endswith(":neutral")]
+    R = np.zeros((len(inter), len(names_)))
+    for r_, i in enumerate(inter):
+        R[r_, i] = 1
+    wald = mi.wald_test(R, scalar=True)
+    res["gee_cells_joint_p"] = float(wald.pvalue)
+    lines.append(f"   cells differ? joint Wald p = {float(wald.pvalue):.2f}")
+    net = pair.groupby("pid").apply(lambda g: int(g.narr_v3.sum()) - int(g.narr_v2.sum()))
+    down, up = int((net < 0).sum()), int((net > 0).sum())
+    sp = float(sps.binomtest(down, down + up, 0.5).pvalue)
+    res["participant_sign"] = dict(down=down, up=up, tied=int((net == 0).sum()), p=sp)
+    lines.append(f"   participant sign test: {down} down, {up} up, {int((net == 0).sum())} tied, p = {sp:.2g}")
     (OUT / "C6_neutral_prompt.json").write_text(json.dumps(res, indent=2), encoding="utf-8")
     txt = "\n".join(lines)
     (OUT / "C6_report.txt").write_text(txt + "\n", encoding="utf-8")

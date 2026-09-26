@@ -1,0 +1,12 @@
+{
+ "n": 1164,
+ "transit": 870,
+ "frames_n": 691,
+ "frames_transit": 453,
+ "frames_rate": 0.6555716353111433,
+ "frames_model_mean": 0.6541911970843847,
+ "scene_change_language": 332,
+ "scene_change_without_exit": 117,
+ "same_room": 24,
+ "same_room_without_exit": 12
+}

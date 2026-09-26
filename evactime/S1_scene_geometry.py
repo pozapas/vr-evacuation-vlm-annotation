@@ -22,7 +22,7 @@ import pandas as pd
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "evactime" / "outputs"
-SCENE = pathlib.Path("D:/evac_unity/WaitingRoom.unity")
+SCENE = pathlib.Path(__file__).resolve().parent.parent / "unity" / "WaitingRoom.unity"
 
 DOC = re.compile(r"^--- !u!(\d+) &(\d+)", re.M)
 V3 = r"\{x:\s*([-\d.eE+]+),\s*y:\s*([-\d.eE+]+),\s*z:\s*([-\d.eE+]+)"
@@ -197,7 +197,7 @@ ID_OBJECTS = {3: ["3_ExitSign", "3_FireExtinguisher"],
 ID_NAME = {k: v[0] for k, v in ID_OBJECTS.items()}
 
 # positions listed by hand, for the parser sanity check (world coords, freestanding objects)
-ANUSH = {3: (2.56699991, 2.64599991, 2.97600007), 4: (1.71700001, 2.32500005, 2.91499996),
+HAND_LIST = {3: (2.56699991, 2.64599991, 2.97600007), 4: (1.71700001, 2.32500005, 2.91499996),
          6: (3.71000004, 2.58500004, 2.95700002), 10: (2.09899998, 2.65300012, 2.977),
          11: (3.54500008, 0.591000021, 2.90280008), 8: (0.0430000015, 0, -1.42400002),
          9: (3.5150001, 0, 1.30900002)}
@@ -238,7 +238,7 @@ def main():
     P("CHECK 1 (parser sanity) - PIVOTS vs the hand list (pivots)")
     P(f"  {'id':>3} {'name':22s}{'err_m':>9}")
     ok1 = True
-    for oid, ref in ANUSH.items():
+    for oid, ref in HAND_LIST.items():
         r = resolved.get(oid)
         if not r or r["pos"] is None:
             P(f"  {oid:>3} {ID_NAME[oid]:22s}{'NOT FOUND':>9}"); ok1 = False; continue

@@ -19,7 +19,7 @@ analysis_window:
   anchor: engine alarm marker
 
 resolution:
-  n_assertions: 1306
+  n_assertions: 1364   # 25 Sep 2026: the 62 recovered calls now enter the attention analysis
   viewpoint_xyz: [2.356, 1.223, -1.387]
   viewpoint_provenance: >
     Cohort median eye position over the pre-alarm baseline, between the WaitingRoom and

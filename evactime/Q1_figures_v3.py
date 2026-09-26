@@ -179,14 +179,13 @@ def fig_resolves():
                 va="center", fontsize=7.2, color=C["sub"])
         ax.text(g.correct.mean() * 100 + 1.5, i - .18, f"{g.correct.mean() * 100:.0f}",
                 va="center", fontsize=7.2, fontweight="bold", color=C["vlm"])
-    ax.axvline(j["chance"] * 100, color=C["vlm"], lw=1.0, ls=(0, (3, 2)), zorder=6)
-    import matplotlib.transforms as mtrans
-    tr = mtrans.blended_transform_factory(ax.transData, ax.transAxes)
-    ax.text(j["chance"] * 100, 1.0, "object chance", transform=tr, fontsize=6.2,
-            color=C["vlm"], ha="center", va="bottom")
-    ax.axvline(j["region_chance"] * 100, color=C["engine"], lw=1.0, ls=(0, (3, 2)), zorder=6)
-    ax.text(j["region_chance"] * 100, 1.0, "region chance", transform=tr, fontsize=6.2,
-            color=C["engine"], ha="center", va="bottom")
+    # Each bar carries its own chance (review, 25 Sep 2026). A pooled chance line is the null of
+    # the pooled claim mix, not of any one target, so it misplaces the chance of every bar.
+    TGT = {"look_at_npc": "npc", "look_at_alarm": "alarm", "look_at_exit_sign": "sign"}
+    for i, t in zip(y, order):
+        pt = j["per_target"][TGT[t]]
+        for yy, v in ((i + .18, pt["region_chance"]), (i - .18, pt["chance"])):
+            ax.plot([v * 100] * 2, [yy - .2, yy + .2], color=C["ink"], lw=1.2, ls=(0, (2, 1.5)), zorder=6)
     ax.set_yticks(y)
     ax.set_yticklabels([TYPE_LABEL[t] for t in order], fontsize=7.6)
     ax.set_xlim(0, 104)
@@ -197,17 +196,24 @@ def fig_resolves():
                 color=C["engine"], fontweight="bold")
     ax.annotate("exact object", xy=(0.50, 0.02), xycoords="axes fraction", fontsize=7.0,
                 color=C["vlm"], fontweight="bold")
+    ax.annotate("dashes: chance for each bar", xy=(0.50, 1.0), xycoords="axes fraction",
+                fontsize=6.2, color=C["sub"], ha="center", va="bottom")
 
     # ---- (c) the positive control, stated as a separability contrast
     ax = fig.add_subplot(gs[1, 0])
     groups = [("NPC\n(free-standing)", j["by_type"]["look_at_npc"], C["good"]),
               ("Alarm\n(wall cluster)", j["by_type"]["look_at_alarm"], C["mid"]),
               ("Exit sign\n(wall cluster)", j["by_type"]["look_at_exit_sign"], C["bad"])]
-    for i, (lab, v, col) in enumerate(groups):
+    tch = [j["per_target"][k]["chance"] for k in ("npc", "alarm", "sign")]
+    for i, ((lab, v, col), ch) in enumerate(zip(groups, tch)):
         ax.bar(i, v * 100, width=.62, color=col, zorder=3)
-        ax.text(i, v * 100 + 2.5, f"{v * 100:.1f}%", ha="center", fontsize=7.6,
+        top = max(v, ch) * 100
+        ax.text(i, top + 2.5, f"{v * 100:.1f}%", ha="center", fontsize=7.6,
                 fontweight="bold", color=col)
-    ax.axhline(j["chance"] * 100, color=C["ink"], lw=1.0, ls=(0, (3, 2)), zorder=4)
+        # the chance of this target, from its own permutation null
+        ax.plot([i - .39, i + .39], [ch * 100] * 2, color=C["ink"], lw=1.1, ls=(0, (3, 2)), zorder=4)
+        ax.text(i + .41, max(ch * 100, 6.0), f"chance\n{ch * 100:.1f}%", fontsize=5.8, color=C["sub"],
+                va="center", ha="left", linespacing=1.0)
     ax.set_xticks(range(3))
     ax.set_xticklabels([g[0] for g in groups], fontsize=7.2)
     ax.set_ylim(0, 104)

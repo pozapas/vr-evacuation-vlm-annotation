@@ -32,28 +32,6 @@ RNG = np.random.default_rng(20260916)
 B = 5000
 
 
-def chance_baseline(d, n_boot=B):
-    """Accuracy if the claim were drawn independently of where gaze actually was.
-
-    The claim and the reference are permuted against each other WITHIN participant, so the
-    baseline preserves each participant's gaze distribution and each model's claim distribution
-    and destroys only the association between them. That is the null the paper needs: "the model
-    names the right class more often than its own output rate would give by chance".
-    """
-    # Pooled over assertions, the same estimand as the observed agreement it is compared with.
-    # An earlier version averaged per-participant accuracies, which weights participants equally
-    # while the observed value weights assertions equally.
-    got = []
-    groups = [g for _, g in d.groupby("pid")]
-    for _ in range(n_boot):
-        hits = 0
-        for g in groups:
-            shuffled = RNG.permutation(g.actual_cls.values)
-            hits += int((g.claimed_cls.values == shuffled).sum())
-        got.append(hits / len(d))
-    return np.array(got)
-
-
 def main():
     d = pd.read_csv(OUT / "C2_resolution.csv")
     L = []
@@ -117,36 +95,147 @@ def main():
     P("")
 
     # ---- the chance baseline, which is what makes 'better than nothing' a claim and not a hope
-    null = chance_baseline(d)
-    obs = float(d.correct.mean())
-    lo, hi = np.percentile(null, [2.5, 97.5])
-    P("IS THIS BETTER THAN CHANCE?")
-    P(f"  observed exact-class accuracy      {obs:6.1%}")
-    P(f"  chance, claims permuted within participant  {null.mean():6.1%}  95% [{lo:.1%}, {hi:.1%}]")
-    P(f"  p = {float((null >= obs).mean()):.4f}")
+    #
+    # Review, 25 Sep 2026. The earlier null permuted claims within participant only, which moved
+    # claims between models, input formats and repeats. The primary null now permutes within the
+    # cell (participant x model x input format), so each model keeps its own claim mix for each
+    # participant and format and only the link between claim and gaze window is removed. The
+    # participant-only null and a stricter within-call null are kept as sensitivity results.
+    #
+    # The mean of a permutation null has a closed form. Within a stratum of n assertions, a
+    # permuted claim i meets reference j with probability 1/n, so its expected hit is
+    # e_i = (1/n) sum_j hit(claim_i, ref_j). Chance is the mean of e_i, and because e_i depends
+    # only on the assertion's own stratum it can be carried through a participant bootstrap.
+    # Permutations are still drawn, for the p-values and the null ranges.
+    NPC_IDS_ARR = np.array(sorted(NPC_IDS))
+    BW_ARR = np.array(sorted(BACK_WALL))
 
-    # The region result needs its own null. About 83% of gaze windows are on the back wall, so a
-    # model that always named a wall cue would score high on region without looking. Permuting
-    # the reference object within participant and re-scoring the region gives that baseline.
-    def region_of(claims, actual):
-        return np.where(claims == "npc", np.isin(actual, list(NPC_IDS)),
-                        np.isin(actual, list(BACK_WALL)))
-    rnull = []
-    for _ in range(B):
-        hits = sum(int(region_of(g.claimed_cls.values, RNG.permutation(g.actual.values)).sum())
-                   for _, g in d.groupby("pid"))
-        rnull.append(hits / len(d))
-    rnull = np.array(rnull)
+    def hit_obj(claims, ref_ids, ref_cls):
+        return claims == ref_cls
+
+    def hit_reg(claims, ref_ids, ref_cls):
+        return np.where(claims == "npc", np.isin(ref_ids, NPC_IDS_ARR), np.isin(ref_ids, BW_ARR))
+
+    STRATA = {"cell": ["pid", "model", "cond"], "participant": ["pid"],
+              "call": ["pid", "model", "cond", "rep"]}
+
+    def expected(d, keys, hit):
+        e = np.empty(len(d))
+        for _, g in d.groupby(keys):
+            idx = d.index.get_indexer(g.index)
+            c = g.claimed_cls.to_numpy(dtype=object)
+            h = hit(c[:, None], g.actual.to_numpy()[None, :], g.actual_cls.to_numpy(dtype=object)[None, :])
+            e[idx] = h.mean(axis=1)
+        return e
+
+    def permute(d, keys, hit, n_perm, rng):
+        """Hit vectors under n_perm within-stratum permutations of the reference."""
+        sid = d.groupby(keys).ngroup().values
+        ids, cls = d.actual.to_numpy(), d.actual_cls.to_numpy(dtype=object)
+        claims = d.claimed_cls.to_numpy(dtype=object)
+        out = np.empty((n_perm, len(d)), dtype=bool)
+        for b in range(n_perm):
+            perm = np.lexsort((rng.random(len(d)), sid))
+            order = np.argsort(sid, kind="stable")
+            src = np.empty(len(d), dtype=int)
+            src[order] = perm
+            out[b] = hit(claims, ids[src], cls[src])
+        return out
+
+    d = d.reset_index(drop=True)
+    obs = float(d.correct.mean())
     robs = float(d.region_hit.mean())
+    res = {}
+    for name, keys in STRATA.items():
+        eo = expected(d, keys, hit_obj)
+        er = expected(d, keys, hit_reg)
+        res[name] = dict(chance=float(eo.mean()), region_chance=float(er.mean()),
+                         kappa_object=float((obs - eo.mean()) / (1 - eo.mean())),
+                         kappa_region=float((robs - er.mean()) / (1 - er.mean())))
+        d[f"e_obj_{name}"], d[f"e_reg_{name}"] = eo, er
+
+    prim = "cell"
+    po = permute(d, STRATA[prim], hit_obj, B, RNG)
+    pr = permute(d, STRATA[prim], hit_reg, B, RNG)
+    null, rnull = po.mean(axis=1), pr.mean(axis=1)
+    lo, hi = np.percentile(null, [2.5, 97.5])
     rlo, rhi = np.percentile(rnull, [2.5, 97.5])
-    kappa_obj = (obs - null.mean()) / (1 - null.mean())
-    kappa_reg = (robs - rnull.mean()) / (1 - rnull.mean())
-    P(f"  region, observed                   {robs:6.1%}")
-    P(f"  region chance, same permutation    {rnull.mean():6.1%}  95% [{rlo:.1%}, {rhi:.1%}]"
-      f"  p = {float((rnull >= robs).mean()):.4f}")
-    P(f"  gaze on the back wall in {np.isin(d.actual, list(BACK_WALL)).mean():.1%} of windows")
-    P(f"  chance-corrected agreement (observed - chance) / (1 - chance):"
-      f" object {kappa_obj:.1%}, region {kappa_reg:.1%}")
+    ch, rch = res[prim]["chance"], res[prim]["region_chance"]
+    kappa_obj, kappa_reg = res[prim]["kappa_object"], res[prim]["kappa_region"]
+    P("IS THIS BETTER THAN CHANCE?  (null: claims permuted within participant x model x format)")
+    P(f"  object, observed {obs:6.1%}   chance {ch:6.1%}  null 95% range [{lo:.1%}, {hi:.1%}]"
+      f"  p = {float((null >= obs).mean()):.4f}   kappa {kappa_obj:.1%}")
+    P(f"  region, observed {robs:6.1%}   chance {rch:6.1%}  null 95% range [{rlo:.1%}, {rhi:.1%}]"
+      f"  p = {float((rnull >= robs).mean()):.4f}   kappa {kappa_reg:.1%}")
+    for name in ("participant", "call"):
+        r = res[name]
+        P(f"  sensitivity, within {name:11s}: object chance {r['chance']:.1%} kappa "
+          f"{r['kappa_object']:.1%}; region chance {r['region_chance']:.1%} kappa {r['kappa_region']:.1%}")
+    P(f"  gaze on the back wall in {np.isin(d.actual, list(BACK_WALL)).mean():.1%} of windows;"
+      f" on the doctor's door (in neither region) in {(d.actual == 12).mean():.1%}")
+    P("")
+
+    # ---- participant bootstrap: 29 independent participants, correlated assertions within them
+    pid_idx = [np.where(d.pid.values == p)[0] for p in d.pid.unique()]
+    boot = collections.defaultdict(list)
+    eo, er = d[f"e_obj_{prim}"].values, d[f"e_reg_{prim}"].values
+    co, cr = d.correct.values.astype(float), d.region_hit.values.astype(float)
+    for _ in range(2000):
+        ix = np.concatenate([pid_idx[i] for i in RNG.integers(0, len(pid_idx), len(pid_idx))])
+        a_o, a_r, c_o, c_r = co[ix].mean(), cr[ix].mean(), eo[ix].mean(), er[ix].mean()
+        boot["object"].append(a_o)
+        boot["region"].append(a_r)
+        boot["kappa_object"].append((a_o - c_o) / (1 - c_o))
+        boot["kappa_region"].append((a_r - c_r) / (1 - c_r))
+    ci = {k: [float(x) for x in np.percentile(v, [2.5, 97.5])] for k, v in boot.items()}
+    P("PARTICIPANT-BOOTSTRAP 95% CONFIDENCE INTERVALS (2,000 resamples of the 29 participants)")
+    for k, v in ci.items():
+        P(f"  {k:14s} [{v[0]:.1%}, {v[1]:.1%}]")
+    P("")
+
+    # ---- each target against its own null. A pooled chance line is the null of the pooled claim
+    # mix, not of any one target, so each claimed class is compared with the chance of that class.
+    tgt = {}
+    P("EACH TARGET AGAINST ITS OWN CHANCE")
+    for c in ("npc", "alarm", "sign"):
+        m = d.claimed_cls.values == c
+        nm = po[:, m].mean(axis=1)
+        o = float(d.correct.values[m].mean())
+        e = float(eo[m].mean())
+        tl, th = np.percentile(nm, [2.5, 97.5])
+        tgt[c] = dict(n=int(m.sum()), observed=o, chance=e, null_range=[float(tl), float(th)],
+                      p=float((nm >= o).mean()), kappa=float((o - e) / (1 - e)),
+                      region=float(cr[m].mean()), region_chance=float(er[m].mean()))
+        P(f"  {c:6s} n={m.sum():5d}  observed {o:6.1%}  chance {e:6.1%}  null [{tl:.1%}, {th:.1%}]"
+          f"  p = {tgt[c]['p']:.4f}  kappa {tgt[c]['kappa']:.1%}")
+    wall = d.claimed_cls.isin(["alarm", "sign"]).values
+    wo, we = float(d.correct.values[wall].mean()), float(eo[wall].mean())
+    wn = po[:, wall].mean(axis=1)
+    P(f"  wall cues together n={wall.sum()}  observed {wo:.1%}  chance {we:.1%}  kappa "
+      f"{(wo - we) / (1 - we):.1%}  p = {float((wn >= wo).mean()):.4f}")
+    npc_correct = int(d.correct.values[~wall].sum())
+    P(f"  correct matches from character claims: {npc_correct} of {int(d.correct.sum())}")
+    P("")
+
+    # ---- each model against its own null, with how often it reports attention at all
+    calls = pd.read_csv(OUT / "A1_calls.csv")
+    cover = calls.assign(any=calls.n_timed > 0).groupby("model")["any"].mean()
+    per_model = {}
+    P("EACH MODEL AGAINST ITS OWN CHANCE (object and region), with coverage")
+    P(f"  {'model':34s}{'n':>5}{'cover':>7}{'obj':>7}{'chance':>8}{'kappa':>7}"
+      f"{'reg':>7}{'chance':>8}{'kappa':>7}{'npc':>6}")
+    for mdl, g in d.groupby("model"):
+        ix = g.index.values
+        o_, e_ = co[ix].mean(), eo[ix].mean()
+        r_, f_ = cr[ix].mean(), er[ix].mean()
+        ko = (o_ - e_) / (1 - e_) if e_ < 1 else 0.0
+        kr = (r_ - f_) / (1 - f_) if f_ < 1 else 0.0
+        per_model[mdl] = dict(n=len(g), coverage=float(cover.get(mdl, np.nan)), object=float(o_),
+                              object_chance=float(e_), kappa_object=float(ko), region=float(r_),
+                              region_chance=float(f_), kappa_region=float(kr),
+                              npc_claim_share=float((g.claimed_cls == "npc").mean()))
+        P(f"  {mdl[:33]:34s}{len(g):5d}{cover.get(mdl, np.nan):7.1%}{o_:7.1%}{e_:8.1%}{ko:7.1%}"
+          f"{r_:7.1%}{f_:8.1%}{kr:7.1%}{(g.claimed_cls == 'npc').mean():6.1%}")
     P("")
 
     # ---- the scene, described rather than treated as a measured threshold
@@ -177,13 +266,20 @@ def main():
     P("  threshold, and it should not be reported as one.")
 
     d.to_csv(OUT / "C2_confusion.csv", index=False)
-    json.dump(dict(n=len(d), exact=obs, region=float(d.region_hit.mean()),
-                   chance=float(null.mean()), chance_ci=[float(lo), float(hi)],
+    json.dump(dict(n=len(d), exact=obs, region=robs, null="cell (participant x model x format)",
+                   chance=ch, chance_ci=[float(lo), float(hi)],
                    p=float((null >= obs).mean()),
-                   region_chance=float(rnull.mean()), region_chance_ci=[float(rlo), float(rhi)],
+                   region_chance=rch, region_chance_ci=[float(rlo), float(rhi)],
                    region_p=float((rnull >= robs).mean()),
                    kappa_object=float(kappa_obj), kappa_region=float(kappa_reg),
+                   sensitivity={k: v for k, v in res.items() if k != prim},
+                   boot_ci=ci, per_target=tgt,
+                   wall=dict(n=int(wall.sum()), observed=wo, chance=we,
+                             kappa=(wo - we) / (1 - we)),
+                   npc_correct=npc_correct, n_correct=int(d.correct.sum()),
+                   per_model=per_model,
                    backwall_share=float(np.isin(d.actual, list(BACK_WALL)).mean()),
+                   doctor_door_share=float((d.actual == 12).mean()),
                    by_type={t: float(g2.correct.mean()) for t, g2 in d.groupby("type")},
                    n_distinct_separations=len(seps)),
               open(OUT / "C2_confusion.json", "w"), indent=1)

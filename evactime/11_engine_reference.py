@@ -27,7 +27,7 @@ import numpy as np, pandas as pd
 import pyxdf
 
 warnings.filterwarnings("ignore")
-STAGE = pathlib.Path("D:/evac_engine_data")
+STAGE = pathlib.Path(__file__).resolve().parent.parent / "engine_data"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "evactime" / "outputs"
 

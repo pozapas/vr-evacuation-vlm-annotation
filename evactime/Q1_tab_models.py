@@ -44,6 +44,7 @@ def cell(value, sub, color, scale=100, cap=60):
 
 def main():
     c2 = pd.read_csv(OUT / "C2_confusion.csv")
+    pmod = json.load(open(OUT / "C2_confusion.json", encoding="utf-8"))["per_model"]
     c4 = pd.read_csv(OUT / "C4_script_completion.csv")
     _, _, per = load_records()
     abl = json.load(open(OUT / "C6_neutral_prompt.json", encoding="utf-8"))
@@ -54,8 +55,13 @@ def main():
         g2, g4 = c2[c2.model == key], c4[c4.model == key]
         fm = FMT[",".join(sorted(g4.cond.unique()))]
         use = per[key]["kept"], per[key]["on_disk"]
-        obj = cell(100 * g2.correct.mean(), f"$n={len(g2)}$", "tvSlate")
-        reg = cell(100 * g2.region_hit.mean(), f"$n={len(g2)}$", "tvSlate")
+        # raw agreement over the chance-corrected score against the model's own null (C2)
+        pm = pmod[key]
+        kf = lambda v: rf"$\kappa$ {100 * v:.1f}".replace(" -", " $-$")
+        obj = cell(100 * pm["object"], kf(pm["kappa_object"]), "tvSlate")
+        reg = cell(100 * pm["region"], kf(pm["kappa_region"]), "tvSlate")
+        use_cell = (rf"\makecell{{{use[0]}/{use[1]}\\[-1pt]\scriptsize\textcolor{{tvSub}}"
+                    rf"{{{100 * pm['coverage']:.0f}\% attend}}}}")
         ex = cell(100 * g4.transit.mean(), f"$n={len(g4)}$", "tvEmber")
         if key == "gemini-3-flash-preview":
             neu = (rf"\makecell{{{100 * nat['A']['v3']:.1f} / {100 * nat['B']['v3']:.1f}\\[-1pt]"
@@ -65,7 +71,7 @@ def main():
             neu = cell(100 * c["v3"], f"from {100 * c['v2']:.1f}", "tvEmber")
         else:
             neu = r"\textcolor{tvSub}{not run}"
-        rows.append(rf"{name} & {dev} & {route} & {fm} & {use[0]}/{use[1]} & {obj} & {reg} & "
+        rows.append(rf"{name} & {dev} & {route} & {fm} & {use_cell} & {obj} & {reg} & "
                     rf"{ex} & {neu} \\")
     head = (r" & & & & & \multicolumn{2}{c}{\textbf{Agreement (\%)}} & "
             r"\multicolumn{2}{c}{\textbf{Exit claims (\%)}} \\" "\n"
@@ -79,12 +85,14 @@ def main():
         tv.preamble(),
         r"\begin{table}[!ht]", r"\centering\footnotesize", r"\begin{threeparttable}",
         r"\caption{Models, Access and Results}\label{tab:models}",
-        r"\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{1.3}",
+        r"\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.3}",
         r"\begin{tabular}{@{}l l l c c *{4}{c}@{}}",
         r"\toprule", head, r"\midrule", "\n".join(rows), r"\bottomrule", r"\end{tabular}",
         r"\begin{tablenotes}[flushleft]\scriptsize",
         r"\item[] \textit{Note:} Input formats are V video with audio, M muted video and F frames at one per second. "
-        r"Usable counts calls with a complete response. The neutral column gives same-day paired "
+        r"Usable counts calls with a complete response, and the share below it made at least one "
+        r"attention claim. Agreement is the raw rate, with $\kappa$ against the model's own chance "
+        r"below it. The neutral column gives same-day paired "
         r"rates on frames, and for Gemini 3 Flash on video and frames through its native interface.",
         r"\end{tablenotes}", r"\end{threeparttable}", r"\end{table}"])
     (TAB / "q1_tab_models.tex").write_text(tex + "\n", encoding="utf-8")

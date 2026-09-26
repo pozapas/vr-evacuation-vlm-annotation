@@ -136,6 +136,34 @@ def main():
     P("the models still complete the canonical evacuation script instead of reporting it.")
     P("This is a failure of the free-text deliverable, not of event timing, and it is invisible")
     P("to any accuracy statistic computed over the structured fields.")
+    # Review, 25 Sep 2026.
+    #  * Only the three Google models received video, so the pooled rate mixes formats. The rate
+    #    on frames, which every model received, is the like-for-like comparison.
+    #  * ACTUAL is a broad cue list (fade, black, cut, transition, return, teleport) searched in the
+    #    narrative and the timeline. It counts scene-change language, not a described reset, so it
+    #    is reported split by whether the same narrative also asserts an exit, and a strict cue
+    #    that requires a return to the same room is reported beside it.
+    SAME_ROOM = re.compile(r"(?:back|returns?|returned|reappears?|resets?|placed|again)\b[^.]{0,40}"
+                           r"\b(?:same|waiting|original|starting|initial)\s+(?:room|position|area|scene|view)"
+                           r"|same\s+room", re.I)
+    d["same_room"] = d.narrative.str.contains(SAME_ROOM)
+    fr = d[d.cond == "B"]
+    summ = dict(
+        n=len(d), transit=int(d.transit.sum()),
+        frames_n=len(fr), frames_transit=int(fr.transit.sum()),
+        frames_rate=float(fr.transit.mean()),
+        frames_model_mean=float(fr.groupby("model").transit.mean().mean()),
+        scene_change_language=int(d.actual.sum()),
+        scene_change_without_exit=int((d.actual & ~d.transit).sum()),
+        same_room=int(d.same_room.sum()),
+        same_room_without_exit=int((d.same_room & ~d.transit).sum()))
+    P("")
+    P(f"FRAMES ONLY, all eight models: {summ['frames_transit']}/{summ['frames_n']} = "
+      f"{summ['frames_rate']:.1%} (mean of model rates {summ['frames_model_mean']:.1%})")
+    P(f"scene-change language {summ['scene_change_language']}, of which without an exit claim "
+      f"{summ['scene_change_without_exit']}; return to the same room stated "
+      f"{summ['same_room']}, of which without an exit claim {summ['same_room_without_exit']}")
+    (OUT / "C4_summary.json").write_text(json.dumps(summ, indent=1), encoding="utf-8")
     txt = "\n".join(L)
     (OUT / "C4_script_report.txt").write_text(txt, encoding="utf-8")
     print(txt)

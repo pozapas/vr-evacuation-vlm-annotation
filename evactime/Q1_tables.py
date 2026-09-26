@@ -104,6 +104,8 @@ def t1():
              "qwen/qwen3-vl-235b-a22b-instruct", "meta-llama/llama-4-maverick"]
     usable = [per_model[k]["kept"] / per_model[k]["on_disk"] for k in order]
     worst = min(zip(usable, order))
+    import S2_reference_quality as S2
+    tagged = S2.tagged_shares()
     typ = c2.type.value_counts()
     shares = [typ.get(t, 0) / len(c2) for t in ("look_at_alarm", "look_at_exit_sign", "look_at_npc")]
     nin, nall = len(inc), 31
@@ -118,7 +120,12 @@ def t1():
         + tv.strip(post, 0, 60, ticks=(0, 30, 60), unit="s") + r" \\[3pt]",
         f"Gaze raycast & {n(len(h))} samples, median {hz:.0f}\\,Hz & "
         + tv.strip(gaze, 40, 55, ticks=(40, 45, 50, 55), unit="Hz") + r" \\[3pt]",
-        "Tagged scene objects & 11 & \\\\",
+        "Tagged scene objects & 11, nine targets and two door handles & \\\\",
+        # review, 25 Sep 2026: share of raycast samples in the analysis window that struck a tagged
+        # object, per recording (S2_reference_quality.py); the rest struck walls, floor or nothing
+        f"Samples on a tagged object & median {100 * np.median(tagged):.0f}\\% & "
+        + tv.strip([100 * x for x in tagged], 0, 100, ticks=(0, 50, 100), unit=r"\%",
+                   r_dot=0.04, median=True) + r" \\[3pt]",
         tv.group("Model annotation", 3),
         "Models and input formats & 8 models, 5 developers, 3 formats & \\\\",
         f"Usable calls, per model & {n(st['kept'])} of {n(st['calls_on_disk'])}, lowest "
@@ -134,7 +141,9 @@ def t1():
     rates = sorted(au["exit_rate"].values())
     maj = [x for x in rates if x <= 0.5]
     dis = [x for x in rates if x > 0.5]
-    lo, hi = au["ci"]
+    lo, hi = au["ci_crossed"]
+    pl = au["q2_plurality_flagged"]
+    ntr = au["regex_transit_n"]
     (a1l, a1h), (a2l, a2h) = au["alpha_q1_ci"], au["alpha_q2_ci"]
     (ml, mh), (dl, dh) = au["corroboration_majority_ci"], au["corroboration_dissent_ci"]
     aref = [(0, ""), (0.667, "0.67")]
@@ -154,11 +163,15 @@ def t1():
         f"Krippendorff's $\\alpha$, description & ${au['alpha_q2']:+.2f}$ [${a2l:+.2f}$, ${a2h:+.2f}$] & "
         + tv.ptci(au["alpha_q2"], a2l, a2h, -1, 1, color="tvViolet", refs=aref, ticks=(-1, 0, 1))
         + r" \\[4pt]",
-        f"Flagged items judged wrong, per item & {au['regex_transit_n']} items, median "
+        f"Flagged items not judged correct, per item & {au['regex_transit_n']} items, median "
         f"{pc(float(np.nanmedian(au['item_share_wrong'])))} of coders & "
         + tv.hist([100 * x for x in au["item_share_wrong"]], 0, 100, 10, color="tvViolet",
                   ticks=(0, 50, 100)) + r" \\[3pt]",
-        f"Judged wrong by majority, all coders & {pc(au['corroboration'])} [{pc(lo)}, {pc(hi)}] & "
+        f"Plurality answer, flagged narratives & {ntr} narratives & "
+        + tv.stack([(pl.get("incorrect", 0) / ntr, "incorrect"), (pl.get("partly", 0) / ntr, "partly"),
+                    (pl.get("tie", 0) / ntr, "tied"), (pl.get("correct", 0) / ntr, "correct")])
+        + r" \\[6pt]",
+        f"Not judged correct by majority, all coders & {pc(au['corroboration'])} [{pc(lo)}, {pc(hi)}] & "
         + tv.ptci(100 * au["corroboration"], 100 * lo, 100 * hi, **P, color="tvViolet") + r" \\[3pt]",
         f"\\quad majority group, {len(maj)} coders & {pc(au['corroboration_majority'])} "
         f"[{pc(ml)}, {pc(mh)}] & "
@@ -178,7 +191,8 @@ def t1():
         "\n".join(rows), r"\bottomrule", r"\end{tabular}",
         r"\begin{tablenotes}[flushleft]\scriptsize",
         r"\item[] \textit{Note:} Dots are recordings, models or coders; bars mark the median; whiskers are 95\% "
-        r"intervals bootstrapped over coders. The dotted line at 0.67 is the lowest value of "
+        r"intervals bootstrapped over coders, and over coders and narratives for the pooled share. "
+        r"Not judged correct counts the answers partly correct and incorrect. The dotted line at 0.67 is the lowest value of "
         r"$\alpha$ Krippendorff accepts for tentative conclusions.",
         r"\end{tablenotes}", r"\end{threeparttable}", r"\end{table}"])
 

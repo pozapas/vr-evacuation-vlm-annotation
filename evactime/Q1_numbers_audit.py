@@ -59,8 +59,9 @@ def resolution():
 
     # ---- the claim now made: region resolved, object not, and better than chance.
     c = json.load(open(OUT / "C2_confusion.json", encoding="utf-8"))
-    check("C2: exact-object accuracy", round(100 * c["exact"], 1), 23.9, tol=0.2)
-    check("C2: right-region accuracy", round(100 * c["region"], 1), 91.9, tol=0.3)
+    check("C2: exact-object accuracy", round(100 * c["exact"], 1), 24.2)
+    check("C2: right-region accuracy", round(100 * c["region"], 1), 91.8)
+    check("C2: object chance as written", round(100 * c["chance"], 1), 17.6)
     check("C2: region is resolved far better than object",
           bool(c["region"] - c["exact"] > 0.50), True)
     check("C2: accuracy exceeds the permutation baseline",
@@ -71,14 +72,55 @@ def resolution():
     check("C2: exit-sign naming near zero", bool(c["by_type"]["look_at_exit_sign"] < 0.05), True)
     # The region result is only a finding against its own null: gaze sits on the back wall in
     # most windows, so region agreement is high even for a claim made without looking.
-    check("C2: region chance reported", round(100 * c["region_chance"], 1), 78.2, tol=0.1)
+    check("C2: region chance reported", round(100 * c["region_chance"], 1), 80.9)
     check("C2: region beats its own chance", bool(c["region"] > c["region_chance_ci"][1]), True)
     check("C2: chance-corrected region far above chance-corrected object",
           bool(c["kappa_region"] > 4 * c["kappa_object"]), True)
     check("C2: chance-corrected values as written",
-          (round(100 * c["kappa_object"], 1), round(100 * c["kappa_region"], 1)), (9.6, 62.8),
-          tol=0.3)
-    check("C2: back-wall share as written", round(100 * c["backwall_share"], 1), 82.7, tol=0.1)
+          (round(100 * c["kappa_object"], 1), round(100 * c["kappa_region"], 1)), (8.0, 57.0))
+    check("C2: back-wall share as written", round(100 * c["backwall_share"], 1), 82.3)
+    # review, 25 Sep 2026: participant-bootstrap intervals, per-target and per-model chance
+    p1 = lambda x: round(100 * x, 1)
+    b = c["boot_ci"]
+    check("C2: bootstrap intervals as written",
+          ([p1(x) for x in b["object"]], [p1(x) for x in b["kappa_object"]],
+           [p1(x) for x in b["kappa_region"]]), ([18.3, 30.1], [4.0, 12.1], [37.5, 72.5]))
+    s = c["sensitivity"]
+    check("C2: sensitivity nulls bracket as written",
+          (p1(s["call"]["kappa_object"]), p1(s["participant"]["kappa_object"]),
+           p1(s["call"]["kappa_region"]), p1(s["participant"]["kappa_region"])),
+          (6.8, 9.7, 53.4, 63.2))
+    t = c["per_target"]
+    check("C2: characters against own chance as written",
+          (t["npc"]["n"], p1(t["npc"]["observed"]), p1(t["npc"]["chance"]), p1(t["npc"]["kappa"])),
+          (154, 88.3, 39.9, 80.5))
+    check("C2: alarm against own chance as written",
+          (t["alarm"]["n"], p1(t["alarm"]["observed"]), p1(t["alarm"]["chance"])), (705, 26.2, 24.2))
+    check("C2: exit sign at chance as written",
+          (t["sign"]["n"], p1(t["sign"]["observed"]), p1(t["sign"]["chance"]), round(t["sign"]["p"], 2)),
+          (505, 1.8, 1.6, 0.44))
+    rk = lambda v: p1((v["region"] - v["region_chance"]) / (1 - v["region_chance"]))
+    check("C2: wall-cue region kappa as written", (rk(t["alarm"]), rk(t["sign"])), (48.9, 36.7))
+    check("C2: wall cues together as written", p1(c["wall"]["kappa"]), 1.5)
+    check("C2: correct matches from characters", (c["npc_correct"], c["n_correct"]), (136, 330))
+    ex = d[(d.type == "look_at_exit_sign") & ~d.correct].actual.value_counts()
+    check("C2: exit-sign confusions as written",
+          (int(ex.get(13, 0)), int(ex.get(4, 0) + ex.get(10, 0)), int(ex.get(6, 0))), (193, 130, 118))
+    pm = c["per_model"]
+    check("C2: coverage range as written",
+          (p1(min(v["coverage"] for v in pm.values())),
+           sum(v["coverage"] == 1.0 for v in pm.values())), (19.5, 3))
+    check("C2: per-model object kappa range as written",
+          (p1(min(v["kappa_object"] for v in pm.values())),
+           p1(max(v["kappa_object"] for v in pm.values()))), (-0.8, 19.6))
+    zero = [m for m, v in pm.items() if v["npc_claim_share"] == 0]
+    check("C2: four models name only the back wall, region kappa zero",
+          (len(zero), all(abs(pm[m]["kappa_region"]) < 1e-9 for m in zero)), (4, True))
+    check("C2: region kappa range of the other four as written",
+          (p1(min(v["kappa_region"] for m, v in pm.items() if m not in zero)),
+           p1(max(v["kappa_region"] for m, v in pm.items() if m not in zero))), (31.0, 74.7))
+    a1 = pd.read_csv(OUT / "A1_assertions_scored.csv")
+    check("A1: timed attention assertions", int(a1.timed.sum()), 1466)
 
     # ---- guards on the WITHDRAWN framing. These exist so the resolution-limit claim cannot be
     # reintroduced without failing the build. Internal review showed that the angular
@@ -99,6 +141,13 @@ def resolution():
 def script_completion():
     d = pd.read_csv(OUT / "C4_script_completion.csv")
     check("C4: narrative count", len(d), 1164)
+    sm = json.load(open(OUT / "C4_summary.json", encoding="utf-8"))
+    check("C4: frames-only rate as written",
+          (sm["frames_transit"], sm["frames_n"], round(100 * sm["frames_rate"], 1)), (453, 691, 65.6))
+    check("C4: scene-change language as written",
+          (sm["scene_change_language"], sm["scene_change_language"] - sm["scene_change_without_exit"],
+           sm["scene_change_without_exit"], round(100 * sm["scene_change_without_exit"] / sm["n"], 1)),
+          (332, 215, 117, 10.1))
 
     # ---- VALIDITY, not consistency. The previous version of this file asserted
     # `transit.mean() == 92.0`, which is the number it was supposed to test, and it passed while
@@ -123,8 +172,9 @@ def script_completion():
     check("C4: an accurate reset is not a transit",
           asserts_transit("The view resets to a fresh view of the waiting room."), False)
 
-    # ---- external check: agreement with the human audit labels, which were produced
-    # independently of this classifier and were not used to tune it.
+    # ---- development check: agreement with the human audit labels. These labels were used while
+    # the rules were written (review, 25 Sep 2026), so this is a development result, not a
+    # validation; the blind test is S3_blind_validation_sheet.py.
     key = {k["id"]: k for k in json.load(open(OUT / "audit_item_key.json", encoding="utf-8"))}
     a = pd.read_csv(OUT / "audit_final.csv")
     a = a[a.verdict_ending.isin(["correct", "not correct"])]
@@ -219,6 +269,14 @@ def audit():
           round(100 * a["corroboration_dissent"]), 73, tol=0.6)
     lo, hi = a["ci"]
     check("audit: CI excludes 50%", bool(lo > 0.50), True)
+    # review, 25 Sep 2026: three-level coding and the crossed interval
+    pl = a["q2_plurality_flagged"]
+    check("audit: plurality answers as written",
+          (pl.get("correct", 0), pl.get("partly", 0), pl.get("incorrect", 0), pl.get("tie", 0)),
+          (3, 21, 16, 4))
+    check("audit: majority 'incorrect' as written", a["q2_majority_incorrect"], 7)
+    check("audit: crossed interval as written", [round(100 * x) for x in a["ci_crossed"]], [66, 100])
+    check("audit: three-category ending alpha as written", round(a["alpha_q1_cat3"], 2), -0.05)
     # the audit sample must be drawn only from the frozen corpus
     key = json.load(open(OUT / "audit_item_key.json", encoding="utf-8"))
     pids = {k["pid"] for k in key if not k.get("catch")}
@@ -370,33 +428,47 @@ def neutral_prompt():
 
 def scoring_null_and_model():
     """A2 permutation nulls of both scoring rules, and the added GEE model of the prompt effect."""
-    n = json.load(open(OUT / "A2_scoring_null.json", encoding="utf-8"))
+    raw = json.load(open(OUT / "A2_scoring_null.json", encoding="utf-8"))
+    n = {k: v for k, v in raw.items() if k[0].isdigit()}
     pct = lambda x: round(100 * x, 1)
+    check("A2: fixed cohort size as written", raw["cohort"]["fixed_n"], 1151)
+    check("A2: every window scored on the fixed cohort", {v["n"] for v in n.values()}, {1151})
     check("A2: permissive and modal curves as written",
           (pct(n["0.25"]["any"]), pct(n["1"]["any"]), pct(n["3"]["any"]),
-           pct(n["0.25"]["modal"]), pct(n["3"]["modal"])), (36.7, 51.1, 69.9, 26.9, 20.6))
-    check("A2: modal rule at 1 s reproduces Equation 3 (C2) exactly",
-          (n["1"]["n"], pct(n["1"]["modal"])), (1306, 23.9))
+           pct(n["0.25"]["modal"]), pct(n["3"]["modal"])), (37.4, 56.2, 75.0, 27.0, 24.8))
+    check("A2: modal range across windows as written",
+          (pct(min(v["modal"] for v in n.values())), pct(max(v["modal"] for v in n.values()))),
+          (24.8, 27.6))
+    check("A2: open cohort at 1 s reproduces Equation 3 (C2) exactly",
+          (n["1"]["n_open"], pct(n["1"]["modal_open"])), (1364, 24.2))
     check("A2: permissive-rule chance level at 0.25 s and 3 s as written",
-          (pct(n["0.25"]["any_null"]), pct(n["3"]["any_null"])), (26.5, 56.1))
-    check("A2: 'more than three times' at 3 s", bool(n["3"]["any"] / n["3"]["modal"] > 3), True)
+          (pct(n["0.25"]["any_null"]), pct(n["3"]["any_null"])), (29.8, 63.6))
+    check("A2: 'three times' at 3 s", bool(n["3"]["any"] / n["3"]["modal"] >= 3), True)
     rise_obs = n["3"]["any"] - n["0.25"]["any"]
     rise_null = n["3"]["any_null"] - n["0.25"]["any_null"]
-    check("A2: chance accounts for 35 of the 40 points as written",
-          (round(100 * rise_null), round(100 * rise_obs)), (30, 33))
-    check("A2: permissive chance-corrected range as written",
-          (pct(n["0.25"]["kappa_any"]), pct(n["3"]["kappa_any"])), (13.9, 31.5))
-    km = [n[k]["kappa_modal"] for k in n]
-    check("A2: modal chance-corrected range as written", (pct(min(km)), pct(max(km))), (7.8, 10.1))
+    check("A2: chance accounts for 34 of the 38 points as written",
+          (round(100 * rise_null), round(100 * rise_obs)), (34, 38))
+    check("A2: permissive chance-corrected range",
+          (pct(n["0.25"]["kappa_any"]), pct(n["3"]["kappa_any"])), (10.8, 31.2))
+    km = [v["kappa_modal"] for v in n.values()]
+    check("A2: modal chance-corrected range as written", (pct(min(km)), pct(max(km))), (7.5, 8.9))
     check("A2: permissive rule never decreases with the window (the stated property)",
           all(n[a]["any"] <= n[b]["any"] + 1e-12 for a, b in zip(list(n)[:-1], list(n)[1:])), True)
+    check("A2: dwell sensitivity as written",
+          (round(100 * raw["median_modal_share_1s"]), pct(raw["dwell_1s"]["0.5"]["kappa"])), (70, 7.1))
     r = json.load(open(OUT / "C6_neutral_prompt.json", encoding="utf-8"))
-    g = r["gee_pooled"]
-    check("C6 GEE: pooled odds ratio as written",
-          (round(g["OR"], 2), round(g["ci"][0], 2), round(g["ci"][1], 2)), (0.25, 0.16, 0.39))
+    g = r["gee_pooled_bc"]
+    check("C6 GEE: pooled odds ratio, bias-reduced, as written",
+          (round(g["OR"], 2), round(g["ci"][0], 2), round(g["ci"][1], 2)), (0.25, 0.15, 0.39))
     ors = [v["OR"] for v in r["gee_cells"].values()]
     check("C6 GEE: cell odds-ratio range as written", (round(min(ors), 2), round(max(ors), 2)),
           (0.12, 0.50))
+    check("C6 GEE: cells do not differ, as written", round(r["gee_cells_joint_p"], 2), 0.35)
+    sg = r["participant_sign"]
+    check("C6: participant sign test as written", (sg["down"], sg["up"], bool(sg["p"] < 0.001)),
+          (22, 3, True))
+    dq = r["drift_check"]["qwen/qwen3-vl-235b-a22b-instruct"]
+    check("C6: Qwen date drift as written", round(100 * (dq["july"] - dq["now"]), 1), 12.6)
 
 
 def native_gemini():

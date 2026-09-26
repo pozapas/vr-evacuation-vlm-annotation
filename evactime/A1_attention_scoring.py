@@ -49,13 +49,19 @@ def events(parsed):
 
 
 def load_assertions():
+    """Assertions from the same 1,164 usable calls as every other analysis.
+
+    Review, 25 Sep 2026: this loader used to read the raw files and skip any call whose stored
+    `parsed` field was not a dict, so the 62 calls that vlm_records recovers with raw_decode (55
+    of them Gemini 3.1 Pro) entered the narrative analysis but not the attention analysis. One
+    parsing path now serves both.
+    """
+    from vlm_records import load_records
+    recs, _, _ = load_records()
     rows = []
-    for f in ("gemini_native_raw.jsonl", "full_openrouter_raw.jsonl"):
-        for line in open(OUT / f, encoding="utf-8"):
-            d = json.loads(line)
-            p = d.get("parsed")
-            if not isinstance(p, dict):
-                continue
+    for d in recs:
+        p = d["parsed"]
+        if True:
             for e in events(p):
                 t = e.get("type", "")
                 if t in CLAIM:
@@ -140,6 +146,18 @@ def main():
     a["phase"] = np.where(a.t_unity < a.ALARM_TRIGGERED, "pre-alarm",
                  np.where(a.t_unity <= a.OutroScene, "evacuation", "post-outro"))
     a.to_csv(OUT / "A1_assertions_scored.csv", index=False)
+
+    # Coverage (review, 25 Sep 2026). The agreement scores are conditional on a model choosing to
+    # report an attention event, so they are precision-like. How often each model reports one at
+    # all is written here, per usable call in the cohort, and reported beside the agreement.
+    from vlm_records import load_records
+    recs, _, _ = load_records()
+    calls = pd.DataFrame([dict(pid=r["pid"], model=r["model"], cond=r["cond"], rep=r["rep"])
+                          for r in recs if r["pid"] in included])
+    cnt = (a[a.timed].groupby(["pid", "model", "cond", "rep"]).size()
+           .rename("n_timed").reset_index())
+    calls = calls.merge(cnt, on=["pid", "model", "cond", "rep"], how="left").fillna({"n_timed": 0})
+    calls.to_csv(OUT / "A1_calls.csv", index=False)
 
     # ---- summaries
     lines = []

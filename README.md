@@ -18,6 +18,7 @@ scene geometry.
 | `evactime/outputs/*_raw.jsonl` | Every model call with its raw response, the parsed annotation, token use, latency and service route. |
 | `evactime/outputs/` (other files) | Scored assertions, confusion matrices, permutation nulls, exit-claim labels, the ablation results and the aggregated human audit. |
 | `evactime/outputs/filmstrip/` | The five frames shown in Figure 4. |
+| `evactime/outputs/asset_hashes_*.csv` | SHA-256 of every frozen clip, muted clip and frame sent to the models. |
 | `docs/NEUTRAL_PROMPT_PREREG.md` | Analysis plan for the neutral-prompt ablation, fixed before the first call, with Amendments 1 to 3. |
 | `docs/CLASSIFIER_REVIEW_NEUTRAL.md` | Hand review of the exit-claim classifier on the neutral-prompt narratives. |
 | `docs/litreview/grid_scores.csv`, `paper/supplement/positioning_evidence.csv` | Score, quotation and location for every cell of Table 1. |
@@ -27,15 +28,16 @@ scene geometry.
 
 | Step | Scripts | Needs the data deposit |
 |---|---|---|
-| Engine reference and scene geometry | `11_engine_reference.py`, `12_reference_final_engine.py`, `S1_scene_geometry.py` | yes |
+| Engine reference and scene geometry | `11_engine_reference.py`, `12_reference_final_engine.py`, `S1_scene_geometry.py`, `S2_reference_quality.py` | yes |
 | Frozen model inputs (clips and frames) | `13_build_assets.py` | yes |
 | Model calls, original description | `16_gemini_native.py` (native Gemini interface), `17_run_full_openrouter.py` (OpenRouter) | yes, plus API keys |
 | Model calls, neutral-prompt ablation | `19_neutral_prompt.py`, `20_gemini_openrouter.py`, `21_v2_sameday.py`, `22_gemini_native_both.py` | yes, plus API keys |
-| Attention scoring | `A1_attention_scoring.py`, `A2_scoring_null.py`, `C2_confusion.py` | A1 only |
-| Exit claims | `transit_classifier.py`, `C4_script_completion.py` (needs the deposit), `C6_neutral_prompt.py` | C4 only |
+| Attention scoring | `A1_attention_scoring.py`, `C2_resolution_limit.py`, `A2_scoring_null.py`, then `C2_confusion.py` (stratified null, bootstrap, per-target and per-model chance) | all but C2_confusion |
+| Exit claims | `transit_classifier.py`, `C4_script_completion.py` (needs the deposit), `C6_neutral_prompt.py`; `S3_blind_validation_sheet.py` draws the blind validation sample | C4 only |
 | Human audit | `score_audit.py`, `C5_audit_analysis.py` | raw returns (not shared) |
 | Tables | `Q1_tables.py`, `Q1_tab_models.py`, `Q1_tab_positioning.py`, `tabviz.py` | Q1_tables only |
 | Figures | `Q1_figures.py` (Figure 1), `Q1_figures_v3.py` (Figure 3), `fig_script_v2.py` (Figure 4), `fig_prompt_ablation.py` (Figure 5), with `figstyle.py` and `palette.py` | no |
+| Supplementary Material | `Q1_supplement.py` writes the supplement from the outputs | no |
 | Number check | `Q1_numbers_audit.py` checks every number the paper states against the outputs | partly |
 
 `vlm_records.py` loads and filters the model responses. `config.yaml` holds the frozen constants.
