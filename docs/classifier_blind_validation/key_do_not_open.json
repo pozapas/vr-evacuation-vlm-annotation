@@ -1,0 +1,808 @@
+{
+ "classifier_sha256": "38a713ba2f62469493351e5210d5e308da040d70b7e4e5f1e12c2c4e1ea3d66a",
+ "seed": 20260925,
+ "per_cell": 20,
+ "pool_size": 420,
+ "items": [
+  {
+   "id": "V001",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P11",
+   "rep": 1
+  },
+  {
+   "id": "V002",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P10",
+   "rep": 1
+  },
+  {
+   "id": "V003",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P20",
+   "rep": 0
+  },
+  {
+   "id": "V004",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P11",
+   "rep": 0
+  },
+  {
+   "id": "V005",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P4",
+   "rep": 2
+  },
+  {
+   "id": "V006",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P23",
+   "rep": 2
+  },
+  {
+   "id": "V007",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P29",
+   "rep": 1
+  },
+  {
+   "id": "V008",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P26",
+   "rep": 0
+  },
+  {
+   "id": "V009",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P5",
+   "rep": 1
+  },
+  {
+   "id": "V010",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P19",
+   "rep": 0
+  },
+  {
+   "id": "V011",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P5",
+   "rep": 0
+  },
+  {
+   "id": "V012",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P9",
+   "rep": 1
+  },
+  {
+   "id": "V013",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P25",
+   "rep": 1
+  },
+  {
+   "id": "V014",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P4",
+   "rep": 2
+  },
+  {
+   "id": "V015",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P6",
+   "rep": 0
+  },
+  {
+   "id": "V016",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P11",
+   "rep": 2
+  },
+  {
+   "id": "V017",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P27",
+   "rep": 0
+  },
+  {
+   "id": "V018",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P29",
+   "rep": 0
+  },
+  {
+   "id": "V019",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P3",
+   "rep": 0
+  },
+  {
+   "id": "V020",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P15",
+   "rep": 1
+  },
+  {
+   "id": "V021",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P28",
+   "rep": 0
+  },
+  {
+   "id": "V022",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P23",
+   "rep": 1
+  },
+  {
+   "id": "V023",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P10",
+   "rep": 1
+  },
+  {
+   "id": "V024",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P23",
+   "rep": 2
+  },
+  {
+   "id": "V025",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P17",
+   "rep": 1
+  },
+  {
+   "id": "V026",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P20",
+   "rep": 0
+  },
+  {
+   "id": "V027",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P15",
+   "rep": 1
+  },
+  {
+   "id": "V028",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P26",
+   "rep": 1
+  },
+  {
+   "id": "V029",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P31",
+   "rep": 0
+  },
+  {
+   "id": "V030",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P30",
+   "rep": 0
+  },
+  {
+   "id": "V031",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P10",
+   "rep": 1
+  },
+  {
+   "id": "V032",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P31",
+   "rep": 1
+  },
+  {
+   "id": "V033",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P5",
+   "rep": 0
+  },
+  {
+   "id": "V034",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P18",
+   "rep": 0
+  },
+  {
+   "id": "V035",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P14",
+   "rep": 0
+  },
+  {
+   "id": "V036",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P9",
+   "rep": 2
+  },
+  {
+   "id": "V037",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P30",
+   "rep": 2
+  },
+  {
+   "id": "V038",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P14",
+   "rep": 0
+  },
+  {
+   "id": "V039",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P12",
+   "rep": 2
+  },
+  {
+   "id": "V040",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P15",
+   "rep": 0
+  },
+  {
+   "id": "V041",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P8",
+   "rep": 2
+  },
+  {
+   "id": "V042",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P19",
+   "rep": 2
+  },
+  {
+   "id": "V043",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P24",
+   "rep": 1
+  },
+  {
+   "id": "V044",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P25",
+   "rep": 2
+  },
+  {
+   "id": "V045",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P18",
+   "rep": 1
+  },
+  {
+   "id": "V046",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P29",
+   "rep": 2
+  },
+  {
+   "id": "V047",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P6",
+   "rep": 1
+  },
+  {
+   "id": "V048",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P5",
+   "rep": 0
+  },
+  {
+   "id": "V049",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P12",
+   "rep": 2
+  },
+  {
+   "id": "V050",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P7",
+   "rep": 2
+  },
+  {
+   "id": "V051",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P21",
+   "rep": 1
+  },
+  {
+   "id": "V052",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P25",
+   "rep": 1
+  },
+  {
+   "id": "V053",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P18",
+   "rep": 2
+  },
+  {
+   "id": "V054",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P26",
+   "rep": 0
+  },
+  {
+   "id": "V055",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P11",
+   "rep": 1
+  },
+  {
+   "id": "V056",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P15",
+   "rep": 1
+  },
+  {
+   "id": "V057",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P11",
+   "rep": 0
+  },
+  {
+   "id": "V058",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P19",
+   "rep": 1
+  },
+  {
+   "id": "V059",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P23",
+   "rep": 0
+  },
+  {
+   "id": "V060",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P13",
+   "rep": 0
+  },
+  {
+   "id": "V061",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P31",
+   "rep": 0
+  },
+  {
+   "id": "V062",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P6",
+   "rep": 1
+  },
+  {
+   "id": "V063",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P11",
+   "rep": 1
+  },
+  {
+   "id": "V064",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P8",
+   "rep": 0
+  },
+  {
+   "id": "V065",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P4",
+   "rep": 0
+  },
+  {
+   "id": "V066",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P26",
+   "rep": 0
+  },
+  {
+   "id": "V067",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P25",
+   "rep": 0
+  },
+  {
+   "id": "V068",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P16",
+   "rep": 2
+  },
+  {
+   "id": "V069",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P16",
+   "rep": 1
+  },
+  {
+   "id": "V070",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P24",
+   "rep": 2
+  },
+  {
+   "id": "V071",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P26",
+   "rep": 1
+  },
+  {
+   "id": "V072",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P27",
+   "rep": 0
+  },
+  {
+   "id": "V073",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P11",
+   "rep": 1
+  },
+  {
+   "id": "V074",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P7",
+   "rep": 2
+  },
+  {
+   "id": "V075",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P31",
+   "rep": 1
+  },
+  {
+   "id": "V076",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P28",
+   "rep": 2
+  },
+  {
+   "id": "V077",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P4",
+   "rep": 0
+  },
+  {
+   "id": "V078",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P31",
+   "rep": 1
+  },
+  {
+   "id": "V079",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P10",
+   "rep": 0
+  },
+  {
+   "id": "V080",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P23",
+   "rep": 0
+  },
+  {
+   "id": "V081",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P7",
+   "rep": 0
+  },
+  {
+   "id": "V082",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "qwen/qwen3-vl-235b-a22b-instruct",
+   "cond": "B",
+   "pid": "P15",
+   "rep": 0
+  },
+  {
+   "id": "V083",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P11",
+   "rep": 2
+  },
+  {
+   "id": "V084",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P16",
+   "rep": 0
+  },
+  {
+   "id": "V085",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P5",
+   "rep": 1
+  },
+  {
+   "id": "V086",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P3",
+   "rep": 1
+  },
+  {
+   "id": "V087",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P16",
+   "rep": 2
+  },
+  {
+   "id": "V088",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P30",
+   "rep": 1
+  },
+  {
+   "id": "V089",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P30",
+   "rep": 0
+  },
+  {
+   "id": "V090",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P7",
+   "rep": 1
+  },
+  {
+   "id": "V091",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P3",
+   "rep": 1
+  },
+  {
+   "id": "V092",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P31",
+   "rep": 1
+  },
+  {
+   "id": "V093",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P30",
+   "rep": 2
+  },
+  {
+   "id": "V094",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P28",
+   "rep": 1
+  },
+  {
+   "id": "V095",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P29",
+   "rep": 1
+  },
+  {
+   "id": "V096",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P14",
+   "rep": 1
+  },
+  {
+   "id": "V097",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "anthropic/claude-opus-4.8",
+   "cond": "B",
+   "pid": "P13",
+   "rep": 0
+  },
+  {
+   "id": "V098",
+   "file": "v2_sameday_raw.jsonl",
+   "model": "openai/gpt-5.2",
+   "cond": "B",
+   "pid": "P10",
+   "rep": 0
+  },
+  {
+   "id": "V099",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "A",
+   "pid": "P19",
+   "rep": 1
+  },
+  {
+   "id": "V100",
+   "file": "gemini_native_sameday_raw.jsonl",
+   "model": "gemini-3-flash-preview",
+   "cond": "B",
+   "pid": "P13",
+   "rep": 1
+  }
+ ]
+}

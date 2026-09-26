@@ -33,7 +33,7 @@ scene geometry.
 | Model calls, original description | `16_gemini_native.py` (native Gemini interface), `17_run_full_openrouter.py` (OpenRouter) | yes, plus API keys |
 | Model calls, neutral-prompt ablation | `19_neutral_prompt.py`, `20_gemini_openrouter.py`, `21_v2_sameday.py`, `22_gemini_native_both.py` | yes, plus API keys |
 | Attention scoring | `A1_attention_scoring.py`, `C2_resolution_limit.py`, `A2_scoring_null.py`, then `C2_confusion.py` (stratified null, bootstrap, per-target and per-model chance) | all but C2_confusion |
-| Exit claims | `transit_classifier.py`, `C4_script_completion.py` (needs the deposit), `C6_neutral_prompt.py`; `S3_blind_validation_sheet.py` draws the blind validation sample | C4 only |
+| Exit claims | `transit_classifier.py`, `C4_script_completion.py` (needs the deposit), `C6_neutral_prompt.py`; `S3_blind_validation_sheet.py` draws the blind validation sample and `S3b_score_blind_validation.py` scores the frozen classifier against the blind labels in `docs/classifier_blind_validation/` | C4 only |
 | Human audit | `score_audit.py`, `C5_audit_analysis.py` | raw returns (not shared) |
 | Tables | `Q1_tables.py`, `Q1_tab_models.py`, `Q1_tab_positioning.py`, `tabviz.py` | Q1_tables only |
 | Figures | `Q1_figures.py` (Figure 1), `Q1_figures_v3.py` (Figure 3), `fig_script_v2.py` (Figure 4), `fig_prompt_ablation.py` (Figure 5), with `figstyle.py` and `palette.py` | no |

@@ -54,6 +54,8 @@ def manifest_rows():
 
 
 def main():
+    bv = J("S3_blind_validation.json")
+    bp = bv["primary"]
     s2, c2, a2, au, c6, c4 = (J("S2_reference_quality.json"), J("C2_confusion.json"),
                               J("A2_scoring_null.json"), J("audit_final.json"),
                               J("C6_neutral_prompt.json"), J("C4_summary.json"))
@@ -239,8 +241,27 @@ Against the audit it flagged no narrative that a majority of coders judged corre
 description found seven missed constructions, such as passing into an adjoining room, which were
 added before the ablation was scored. These figures describe development, not validation. The frozen
 classifier was then tested on 100 narratives that no one had read, 20 drawn at random from each of
-five model and format cells of the same-day runs under the original description.
-\textcolor{{red}}{{[Blind test result, to be added once the labels are in.]}}
+five model and format cells of the same-day runs under the original description (GPT-5.2,
+Claude~Opus~4.8 and Qwen3-VL~235B on frames, Gemini~3~Flash on frames and on video with audio). The
+SHA-256 of the classifier was recorded when the sample was drawn and checked before scoring. One
+author labeled each narrative, blind to model, format and classifier output, as asserting that the
+participant left the room, not asserting it, or unsure. The labels were {bv['labels'].get('yes', 0)} yes,
+{bv['labels'].get('no', 0)} no and {bv['labels'].get('unsure', 0)} unsure, and Table~\ref{{tab:s-blind}} compares them with the classifier.
+The classifier flagged {bv['unsure_flagged']} of the unsure narratives. Its false positives were hedged
+narratives that mention leaving while saying it is not clearly shown, and its misses were the
+construction ``passes through by frame $n$'' and a bare ``exit into a hallway''. With unsure counted
+as yes, $\kappa$ was {bv['unsure_as_yes']['kappa']:.2f}, and with unsure counted as no, {bv['unsure_as_no']['kappa']:.2f}.
+
+\begin{{table}}[!ht]\centering\small
+\caption{{Frozen classifier against blind labels, unsure excluded ($n={bp['n']}$)}}\label{{tab:s-blind}}
+\begin{{tabular}}{{@{{}}l r r l@{{}}}}\toprule
+& Human yes & Human no & Measure [95\% Wilson interval] \\\midrule
+Classifier yes & {bp['tp']} & {bp['fp']} & Recall {pc(bp['recall'])}\% [{pc(bp['recall_ci'][0])}, {pc(bp['recall_ci'][1])}] \\
+Classifier no & {bp['fn']} & {bp['tn']} & Precision {pc(bp['precision'])}\% [{pc(bp['precision_ci'][0])}, {pc(bp['precision_ci'][1])}] \\
+& & & Specificity {pc(bp['specificity'])}\% [{pc(bp['specificity_ci'][0])}, {pc(bp['specificity_ci'][1])}] \\
+& & & Accuracy {pc(bp['accuracy'])}\%, $\kappa={bp['kappa']:.2f}$ \\
+\bottomrule\end{{tabular}}
+\end{{table}}
 
 Of the {c4['scene_change_language']} narratives that used scene-change language (a cut, fade, black screen or
 transition), {c4['scene_change_language'] - c4['scene_change_without_exit']} also asserted an exit, and {c4['same_room']} stated a return to the same room.

@@ -182,6 +182,21 @@ def script_completion():
     got = np.array([asserts_transit(key[i]["narrative"]) for i in a.id])
     fp = int((got & ~hum).sum())
     recall = float((got & hum).sum() / max(hum.sum(), 1))
+    # ---- blind validation of the frozen classifier (S3b)
+    bv = json.load(open(OUT / "S3_blind_validation.json", encoding="utf-8"))
+    import hashlib
+    check("C4 blind: classifier unchanged since the sample was drawn",
+          hashlib.sha256((ROOT / "evactime" / "transit_classifier.py").read_bytes()).hexdigest(),
+          bv["classifier_sha256"])
+    bp = bv["primary"]
+    r1 = lambda x: round(100 * x, 1)
+    check("C4 blind: agreement as written",
+          (bp["n"], r1(bp["accuracy"]), round(bp["kappa"], 2)), (87, 89.7, 0.74))
+    check("C4 blind: recall and precision as written",
+          (r1(bp["recall"]), [r1(x) for x in bp["recall_ci"]], r1(bp["precision"]),
+           [r1(x) for x in bp["precision_ci"]]), (92.1, [82.7, 96.6], 93.5, [84.6, 97.5]))
+    check("C4 blind: flagged rate against human rate as written",
+          (r1(bp["classifier_rate"]), r1(bp["human_rate"])), (71.3, 72.4))
     check("C4: no narrative humans call correct is flagged as a transit", fp, 0)
     check("C4: recall against human labels at least 0.80", bool(recall >= 0.80), True)
 

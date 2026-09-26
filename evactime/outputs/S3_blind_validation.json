@@ -1,0 +1,131 @@
+{
+ "classifier_sha256": "38a713ba2f62469493351e5210d5e308da040d70b7e4e5f1e12c2c4e1ea3d66a",
+ "labels": {
+  "yes": 63,
+  "no": 24,
+  "unsure": 13
+ },
+ "primary": {
+  "n": 87,
+  "tp": 58,
+  "fp": 4,
+  "fn": 5,
+  "tn": 20,
+  "recall": 0.9206349206349206,
+  "recall_ci": [
+   0.8272947198845853,
+   0.9656246596634805
+  ],
+  "precision": 0.9354838709677419,
+  "precision_ci": [
+   0.8455226734181273,
+   0.974627505192356
+  ],
+  "specificity": 0.8333333333333334,
+  "specificity_ci": [
+   0.6414652961213058,
+   0.9332143199927109
+  ],
+  "accuracy": 0.896551724137931,
+  "accuracy_ci": [
+   0.8149483835215049,
+   0.9446155167180331
+  ],
+  "kappa": 0.7443682664054849,
+  "human_rate": 0.7241379310344828,
+  "classifier_rate": 0.7126436781609196
+ },
+ "unsure_as_yes": {
+  "n": 100,
+  "tp": 61,
+  "fp": 4,
+  "fn": 15,
+  "tn": 20,
+  "recall": 0.8026315789473685,
+  "recall_ci": [
+   0.6995595508255928,
+   0.8765812078766376
+  ],
+  "precision": 0.9384615384615385,
+  "precision_ci": [
+   0.852176391786862,
+   0.9758113365634377
+  ],
+  "specificity": 0.8333333333333334,
+  "specificity_ci": [
+   0.6414652961213058,
+   0.9332143199927109
+  ],
+  "accuracy": 0.81,
+  "accuracy_ci": [
+   0.7222097592919214,
+   0.8748534600729574
+  ],
+  "kappa": 0.5497630331753556,
+  "human_rate": 0.76,
+  "classifier_rate": 0.65
+ },
+ "unsure_as_no": {
+  "n": 100,
+  "tp": 58,
+  "fp": 7,
+  "fn": 5,
+  "tn": 30,
+  "recall": 0.9206349206349206,
+  "recall_ci": [
+   0.8272947198845853,
+   0.9656246596634805
+  ],
+  "precision": 0.8923076923076924,
+  "precision_ci": [
+   0.7939846696853139,
+   0.9468464556807439
+  ],
+  "specificity": 0.8108108108108109,
+  "specificity_ci": [
+   0.6579498842904441,
+   0.9052014124266288
+  ],
+  "accuracy": 0.88,
+  "accuracy_ci": [
+   0.8018773199709163,
+   0.9300066263473222
+  ],
+  "kappa": 0.7396963123644251,
+  "human_rate": 0.63,
+  "classifier_rate": 0.65
+ },
+ "unsure_flagged": 3,
+ "by_cell": {
+  "anthropic/claude-opus-4.8|B": {
+   "n": 20,
+   "human_yes": 15,
+   "unsure": 3,
+   "flagged": 17
+  },
+  "gemini-3-flash-preview|A": {
+   "n": 20,
+   "human_yes": 16,
+   "unsure": 0,
+   "flagged": 16
+  },
+  "gemini-3-flash-preview|B": {
+   "n": 20,
+   "human_yes": 13,
+   "unsure": 2,
+   "flagged": 12
+  },
+  "openai/gpt-5.2|B": {
+   "n": 20,
+   "human_yes": 1,
+   "unsure": 7,
+   "flagged": 4
+  },
+  "qwen/qwen3-vl-235b-a22b-instruct|B": {
+   "n": 20,
+   "human_yes": 18,
+   "unsure": 1,
+   "flagged": 16
+  }
+ }
+}
