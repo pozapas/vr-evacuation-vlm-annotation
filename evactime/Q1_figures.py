@@ -37,7 +37,7 @@ SUPER = {-1: "none", 0: "none", 1: "misc", 2: "misc", 3: "sign", 4: "alarm", 10:
          5: "door", 7: "door", 12: "door", 13: "door", 6: "display", 11: "equipment",
          8: "npc", 9: "npc"}
 NAMES = {3: "Exit sign", 4: "Alarm (visual)", 10: "Alarm (audible)", 6: "Queue display",
-         13: "Exit door", 12: "Doctor's door", 8: "NPC 1", 9: "NPC 2", 11: "Extinguisher"}
+         13: "Exit door", 12: "Side door", 8: "NPC 1", 9: "NPC 2", 11: "Extinguisher"}
 EYE = np.array([2.356, 1.223, -1.387])          # canonical seated viewpoint (published constant)
 
 
@@ -122,7 +122,7 @@ def fig1(pos):
     key_ax = fig.add_axes([0.075, 0.000, 0.91, 0.065])
     key_ax.axis("off")
     key_labels = {3: "Exit sign", 4: "Visual alarm", 10: "Audible alarm", 6: "Queue display",
-                  13: "Exit door", 11: "Extinguisher", 9: "NPC 2", 12: "Doctor's door",
+                  13: "Exit door", 11: "Extinguisher", 9: "NPC 2", 12: "Side door",
                   8: "NPC 1"}
     # Center the complete row as a single unit. A fixed inter-item gap keeps the distance
     # between each complete circle-plus-label group constant.

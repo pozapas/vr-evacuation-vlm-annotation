@@ -109,11 +109,12 @@ def main():
 \usepackage{{newtxtext,newtxmath}}
 \usepackage{{booktabs,array,xcolor}}
 \usepackage[hidelinks]{{hyperref}}
+\usepackage{{xurl}}
 \usepackage[labelfont=bf,labelsep=period,font=small]{{caption}}
 \renewcommand{{\thetable}}{{S\arabic{{table}}}}
 \renewcommand{{\thesection}}{{S\arabic{{section}}}}
-\title{{Supplementary Material\\[4pt]\large Testing Vision-Language Model Annotations of Virtual Reality
-Evacuation Recordings Against the Game Engine Record}}
+\title{{Supplementary Material\\[4pt]\large Automated Annotation of Evacuation Videos via
+Vision-Language Models}}
 \date{{}}
 \begin{{document}}
 \maketitle
@@ -128,9 +129,8 @@ logged with the identifiers $-1$ or 0, which the engine records as no object, an
 untagged cubes are excluded from the modal object of Equation~2 of the paper. The eleven tagged
 objects with a position in the scene are the nine targets of Figure~1 and the handles of the two
 doors.
-Gaze was recorded with the eye tracker integrated in the HTC Vive Pro Eye head-mounted display.
-\textcolor{{red}}{{[Lund team to add the nominal accuracy, calibration procedure, recalibration rule and any
-per-participant validation error.]}}
+Gaze was recorded with the eye tracker integrated in the HTC Vive Pro Eye head-mounted display,
+whose accuracy and calibration are described in the Method of the paper.
 
 \begin{{table}}[!ht]\centering\small
 \caption{{Diagnostics of the engine reference, median [range] over 29 recordings}}\label{{tab:s-ref}}
@@ -199,7 +199,7 @@ scoring rules on the {a2['cohort']['fixed_n']} assertions scorable at every wind
 window when the set is not fixed. When the modal object held at least half of the tagged samples in
 its window ({pc(dw['0.5']['share'], 0)}\% of windows), object agreement was {pc(dw['0.5']['modal'])}\% against {pc(dw['0.5']['chance'])}\% by chance
 ($\kappa={pc(dw['0.5']['kappa'])}\%$), and when it held at least three quarters ({pc(dw['0.75']['share'], 0)}\%), {pc(dw['0.75']['modal'])}\% against
-{pc(dw['0.75']['chance'])}\% ($\kappa={pc(dw['0.75']['kappa'])}\%$). The doctor's door, which belongs to neither region, was the modal object in
+{pc(dw['0.75']['chance'])}\% ($\kappa={pc(dw['0.75']['kappa'])}\%$). The side door, which belongs to neither region, was the modal object in
 {pc(c2['doctor_door_share'])}\% of scored windows.
 
 \begin{{table}}[!ht]\centering\small
@@ -282,7 +282,8 @@ notes that the participant stayed in the room. For the description, $\alpha={au[
 \section{{Literature positioning}}
 
 The score, supporting quotation and location for every cell of Table~1 of the paper are in the file
-\nolinkurl{{paper/supplement/positioning_evidence.csv}} of the code repository.
+\nolinkurl{{paper/supplement/positioning_evidence.csv}} of the code repository
+\url{{https://anonymous.4open.science/r/vr-evacuation-vlm-annotation-9353}}.
 
 \end{{document}}
 """

@@ -1,4 +1,4 @@
-# Testing Vision-Language Model Annotations of Virtual Reality Evacuation Recordings Against the Game Engine Record
+# Automated Annotation of Evacuation Videos via Vision-Language Models
 
 This repository holds the analysis code, the task descriptions, the analysis plan with its
 amendments, every model response and the derived outputs behind the paper of the same title
