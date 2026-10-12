@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36">
   <diagram id="evactime-method-pipeline" name="Figure 1 - Methods pipeline">
-    <mxGraphModel dx="2806" dy="711" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="820" math="0" shadow="0" background="#FFFFFF">
+    <mxGraphModel dx="3051" dy="1017" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="820" background="#FFFFFF" math="0" shadow="0">
       <root>
         <mxCell id="0" style="" />
         <mxCell id="1" parent="0" style="" />
@@ -13,7 +13,7 @@
         <mxCell id="stage1_sep" parent="1" style="line;strokeWidth=1;strokeColor=#3B6BA5;opacity=45;" value="" vertex="1">
           <mxGeometry height="1" width="268" x="-4" y="145" as="geometry" />
         </mxCell>
-        <mxCell id="stage1_body" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;strokeWidth=1;arcSize=8;align=left;verticalAlign=middle;spacingLeft=14;spacingRight=10;fontSize=17;fontFamily=Helvetica;fontColor=#1A1D24;" value="&lt;div style=&quot;line-height: 180%;&quot;&gt;&lt;b&gt;29 VR evacuation recordings&lt;/b&gt;&lt;br&gt;&amp;#8226; 31 recorded, 2 excluded&lt;br&gt;&amp;#8226; First-person view, 75 s window&lt;/div&gt;" vertex="1">
+        <mxCell id="stage1_body" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;strokeWidth=1;arcSize=8;align=left;verticalAlign=middle;spacingLeft=14;spacingRight=10;fontSize=17;fontFamily=Helvetica;fontColor=#1A1D24;" value="&lt;div style=&quot;line-height: 230%;&quot;&gt;&lt;b&gt;29 VR evacuation recordings&lt;/b&gt;&lt;br&gt;• 31 recorded, 2 excluded&lt;br&gt;• First-person view, 75 s window&lt;/div&gt;" vertex="1">
           <mxGeometry height="156" width="279" x="-10" y="164" as="geometry" />
         </mxCell>
         <mxCell id="stage2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B6BA5;strokeWidth=2;arcSize=12;shadow=0;fontSize=17;fontFamily=Helvetica;" value="" vertex="1">
@@ -61,7 +61,7 @@
         <mxCell id="stage4_sep" parent="1" style="line;strokeWidth=1;strokeColor=#3B6BA5;opacity=45;" value="" vertex="1">
           <mxGeometry height="1" width="268" x="1089" y="145" as="geometry" />
         </mxCell>
-        <mxCell id="stage4_body" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=1;arcSize=8;align=left;verticalAlign=middle;spacingLeft=14;spacingRight=10;fontSize=17;fontFamily=Helvetica;fontColor=#1A1D24;strokeColor=none;" value="&lt;div style=&quot;line-height: 180%;&quot;&gt;&lt;b&gt;8 vision-language models&lt;/b&gt;&lt;br&gt;&amp;#8226; Three repeated calls&lt;br&gt;&amp;#8226; Original and neutral prompts&lt;/div&gt;" vertex="1">
+        <mxCell id="stage4_body" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeWidth=1;arcSize=8;align=left;verticalAlign=middle;spacingLeft=14;spacingRight=10;fontSize=17;fontFamily=Helvetica;fontColor=#1A1D24;strokeColor=none;" value="&lt;div style=&quot;line-height: 230%;&quot;&gt;&lt;b&gt;8 vision-language models&lt;/b&gt;&lt;br&gt;• Three repeated calls&lt;br&gt;• Original and neutral prompts&lt;/div&gt;" vertex="1">
           <mxGeometry height="195" width="254" x="1091" y="144.5" as="geometry" />
         </mxCell>
         <mxCell id="stage5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B6BA5;strokeWidth=2;arcSize=12;shadow=0;fontSize=17;fontFamily=Helvetica;" value="" vertex="1">

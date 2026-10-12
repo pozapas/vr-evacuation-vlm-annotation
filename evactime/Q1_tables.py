@@ -76,6 +76,7 @@ def t1():
     h["pid"] = "P" + h.Participant.str.extract(r"P0*(\d+)")[0]
     win = pd.read_csv(OUT / "asset_windows.csv")
     inc = win[win.include]
+    h = h[h.pid.isin(set(inc.pid))]          # the 29 analyzed participants, not all 31 recorded
     c2 = pd.read_csv(OUT / "C2_resolution.csv")
     import sys
     sys.path.insert(0, str(ROOT / "evactime"))
